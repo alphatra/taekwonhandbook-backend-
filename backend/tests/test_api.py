@@ -1,9 +1,7 @@
-import json
 import pytest
-from django.test import Client
 from django.contrib.auth import get_user_model
+from django.test import Client
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from tkh_lexicon.models import Technique
 from tkh_patterns.models import Tul
 

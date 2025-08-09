@@ -1,7 +1,8 @@
-from django.contrib import admin
-from .models import Technique
-from django_json_widget.widgets import JSONEditorWidget
 from django import forms
+from django.contrib import admin
+from django_json_widget.widgets import JSONEditorWidget
+
+from .models import Technique
 
 
 class TechniqueForm(forms.ModelForm):

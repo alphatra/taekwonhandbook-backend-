@@ -1,12 +1,11 @@
 from django.conf import settings
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
-
+from rest_framework.views import APIView
 from tkh_lexicon.models import Technique
 from tkh_patterns.models import Tul
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 
 try:
     import meilisearch  # type: ignore
@@ -15,6 +14,7 @@ except Exception:  # pragma: no cover
 
 
 from .serializers import SearchResponseSerializer
+
 
 @extend_schema(
     parameters=[

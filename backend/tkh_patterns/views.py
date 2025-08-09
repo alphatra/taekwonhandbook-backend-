@@ -1,6 +1,7 @@
-from rest_framework import viewsets, filters
-from django_filters.rest_framework import DjangoFilterBackend
 import django_filters
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, viewsets
+
 from .models import Tul
 from .serializers import TulSerializer
 

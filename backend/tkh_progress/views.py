@@ -1,8 +1,9 @@
-from rest_framework import viewsets, mixins, status
-from rest_framework.response import Response
+from rest_framework import mixins, status, viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Progress
+from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
+
+from .models import Progress
 from .serializers import ProgressSerializer
 
 
@@ -12,11 +13,7 @@ class ProgressViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.G
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "progress"
 
-    def get_queryset(self):
-        # Spectacular calls get_queryset during schema generation without a real user
-        if getattr(self, "swagger_fake_view", False):  # pragma: no cover
-            return Progress.objects.none()
-        return Progress.objects.filter(user=self.request.user)
+    # get_queryset already defined above; keep single definition
 
     def get_queryset(self):
         return Progress.objects.filter(user=self.request.user)

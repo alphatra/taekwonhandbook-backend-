@@ -1,17 +1,19 @@
 import random
-from rest_framework import views, status
-from rest_framework.response import Response
+
+from drf_spectacular.utils import extend_schema
+from rest_framework import status, views
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
+
 from .models import QuizQuestion, QuizSession
 from .serializers import (
-    QuizSessionSerializer,
-    QuizQuestionSerializer,
-    QuizStartRequestSerializer,
     QuizAnswerRequestSerializer,
     QuizAnswerResponseSerializer,
+    QuizQuestionSerializer,
+    QuizSessionSerializer,
+    QuizStartRequestSerializer,
 )
-from drf_spectacular.utils import extend_schema, OpenApiExample
 
 
 @extend_schema(request=QuizStartRequestSerializer, responses=QuizSessionSerializer)

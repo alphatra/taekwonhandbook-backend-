@@ -1,27 +1,26 @@
 import base64
-import hmac
 import hashlib
+import hmac
 import json
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urljoin
 
 from django.conf import settings
-from rest_framework import status, views
-from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema
+from rest_framework import filters, status, views, viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
 
 from .models import MediaAsset
 from .serializers import (
     MediaAssetSerializer,
-    PresignUploadRequestSerializer,
     MediaCompleteRequestSerializer,
+    PresignUploadRequestSerializer,
     PresignUploadResponseSerializer,
 )
 from .tasks import transcode_media
-from drf_spectacular.utils import extend_schema, OpenApiExample
-from rest_framework import viewsets, filters
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 @extend_schema(request=PresignUploadRequestSerializer, responses=PresignUploadResponseSerializer)

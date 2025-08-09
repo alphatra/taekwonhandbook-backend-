@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import MediaAsset
 from tkh_lexicon.serializers import TechniqueSerializer
 from tkh_patterns.serializers import TulSerializer
+
+from .models import MediaAsset
 
 
 class MediaAssetSerializer(serializers.ModelSerializer):

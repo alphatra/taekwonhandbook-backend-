@@ -20,11 +20,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: eifinger/setup-rye@v3
         with:
-          rye-version: "0.44.0"
+          version: "0.44.0"
       - name: Pin Python and sync
         run: |
           rye pin 3.12
           rye sync
+      - name: Ruff (format)
+        run: rye run ruff format .
+      - name: Ruff (fix)
+        run: rye run ruff check --fix .
       - name: Ruff (lint)
         run: rye run ruff check .
       - name: Django checks

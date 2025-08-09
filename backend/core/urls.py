@@ -15,22 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.db import connection
 import json
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from django.http import JsonResponse
 import logging
+
+from django.conf import settings
+from django.contrib import admin
+from django.db import connection
+from django.http import HttpResponse, JsonResponse
+from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
 try:
     import meilisearch  # type: ignore
 except Exception:  # pragma: no cover
     meilisearch = None
 import redis as redis_lib
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from django.shortcuts import redirect
-from django.http import HttpResponse
+
 
 def health(_request):
     logger = logging.getLogger("request")
@@ -41,14 +42,16 @@ def health(_request):
             cur.execute("SELECT 1")
             status["db"] = "ok"
     except Exception as e:
-        status["db"] = f"error: {e}"; status["status"] = "degraded"
+        status["db"] = f"error: {e}"
+        status["status"] = "degraded"
     # Redis
     try:
         r = redis_lib.from_url(settings.REDIS_URL)
         r.ping()
         status["redis"] = "ok"
     except Exception as e:
-        status["redis"] = f"error: {e}"; status["status"] = "degraded"
+        status["redis"] = f"error: {e}"
+        status["status"] = "degraded"
     # Meilisearch
     try:
         if meilisearch and getattr(settings, "MEILISEARCH_URL", None):
@@ -58,7 +61,8 @@ def health(_request):
         else:
             status["meilisearch"] = "disabled"
     except Exception as e:
-        status["meilisearch"] = f"error: {e}"; status["status"] = "degraded"
+        status["meilisearch"] = f"error: {e}"
+        status["status"] = "degraded"
     logger.info("health", extra={"health": json.dumps(status)})
     return JsonResponse(status)
 

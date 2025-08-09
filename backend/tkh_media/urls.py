@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from .views import MediaUploadView, MediaCompleteView, MediaAssetViewSet
+
+from .views import MediaAssetViewSet, MediaCompleteView, MediaUploadView
 
 urlpatterns = [
     path("media/upload", MediaUploadView.as_view(), name="media-upload"),

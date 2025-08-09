@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import ExamSyllabus
 from tkh_lexicon.serializers import TechniqueSerializer
 from tkh_patterns.serializers import TulSerializer
+
+from .models import ExamSyllabus
 
 
 class ExamSyllabusSerializer(serializers.ModelSerializer):

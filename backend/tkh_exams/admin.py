@@ -1,6 +1,7 @@
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django_json_widget.widgets import JSONEditorWidget
+
 from .models import ExamSyllabus
 
 
