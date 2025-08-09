@@ -29,7 +29,7 @@ class Command(BaseCommand):
                 "price_cents": 5900,
                 "currency": "PLN",
                 "trial_days": 14,
-                "features": {"ads": False, "no_ads": True, "club": True, "quiz_create": True},
+                "features": {"ads": False, "no_ads": True, "club": True, "quiz_create": True, "seats_max": 20},
             },
         ]
         for p in plans:

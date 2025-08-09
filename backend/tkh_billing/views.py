@@ -197,6 +197,8 @@ class ClubListCreateView(APIView):
             plan = Plan.objects.get(code=plan_code)
         except Plan.DoesNotExist:
             return Response({"detail": "invalid plan"}, status=400)
+        max_seats = int((plan.features or {}).get("seats_max", 20))
+        seats_total = min(max(seats_total, 1), max_seats)
         club = Club.objects.create(owner=request.user, name=name, plan=plan, seats_total=seats_total, seats_used=1)
         ClubMember.objects.create(club=club, user=request.user, role="owner")
         return Response(ClubSerializer(club).data, status=201)
