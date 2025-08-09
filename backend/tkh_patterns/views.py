@@ -22,6 +22,14 @@ class TulFilterSet(django_filters.FilterSet):
 
 
 class TulViewSet(viewsets.ReadOnlyModelViewSet):
+    """Public read-only listing of tuls (patterns).
+
+    PL: Endpoint publiczny (tylko odczyt) dla układów tul. Umożliwia filtrowanie
+    po `belt` i opcjonalnie `hasMedia`, wyszukiwanie po nazwie oraz sortowanie.
+
+    EN: Public read-only endpoint for patterns with filtering by `belt`, optional
+    `hasMedia` flag, search by `name` and ordering.
+    """
     queryset = Tul.objects.all()
     serializer_class = TulSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]

@@ -50,4 +50,8 @@ nav:
   - Reference:
       - reference/core.pl.md
       - reference/apps.pl.md
+  - Flows:
+      - flows/media-pipeline.pl.md
+      - flows/search-fallback.pl.md
+      - flows/offline-sync.pl.md
 

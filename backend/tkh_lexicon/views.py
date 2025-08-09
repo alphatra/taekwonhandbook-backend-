@@ -22,6 +22,15 @@ class TechniqueFilterSet(django_filters.FilterSet):
 
 
 class TechniqueViewSet(viewsets.ReadOnlyModelViewSet):
+    """Public read-only listing of techniques.
+
+    PL: Publiczny endpoint tylko do odczytu dla listy technik. Wspiera filtrowanie
+    po `category`, minimalnym pasie (`min_belt`) oraz filtr `hasMedia`, a także
+    wyszukiwanie pełnotekstowe po polu `names` i `tags`.
+
+    EN: Public read-only endpoint for techniques with filters (`category`,
+    `min_belt`, `hasMedia`) and search over `names` and `tags`.
+    """
     queryset = Technique.objects.all()
     serializer_class = TechniqueSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]

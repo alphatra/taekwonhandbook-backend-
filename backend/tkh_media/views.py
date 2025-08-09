@@ -25,6 +25,11 @@ from .tasks import transcode_media
 
 @extend_schema(request=PresignUploadRequestSerializer, responses=PresignUploadResponseSerializer)
 class MediaUploadView(views.APIView):
+    """Generate a minimal S3/MinIO presigned POST for direct upload.
+
+    PL: Generuje minimalny presigned POST (MinIO/S3) do bezpośredniego uploadu
+    z klienta. Zabezpieczone JWT + throttlingiem. Parametr wejściowy: `filename`.
+    """
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "media"
@@ -76,6 +81,11 @@ class MediaUploadView(views.APIView):
 
 @extend_schema(request=MediaCompleteRequestSerializer, responses=MediaAssetSerializer)
 class MediaCompleteView(views.APIView):
+    """Finalize upload and trigger async transcode pipeline.
+
+    PL: Finalizuje upload (tworzy rekord `MediaAsset`) i uruchamia asynchroniczny
+    pipeline transkodowania (Celery). Zwraca metadane zasobu.
+    """
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "media"
@@ -98,6 +108,7 @@ class MediaCompleteView(views.APIView):
 
 
 class MediaAssetViewSet(viewsets.ReadOnlyModelViewSet):
+    """Public read-only access to processed media assets with filters/search."""
     queryset = MediaAsset.objects.all().order_by("-updated_at")
     serializer_class = MediaAssetSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]

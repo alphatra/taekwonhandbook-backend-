@@ -18,6 +18,11 @@ from .serializers import (
 
 @extend_schema(request=QuizStartRequestSerializer, responses=QuizSessionSerializer)
 class QuizStartView(views.APIView):
+    """Start a quiz session for the user.
+
+    PL: Tworzy nową sesję quizu (tryb, opcjonalny pas), losuje pytania i
+    zwraca stan sesji. Throttling per-scope, auth wymagane.
+    """
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "quizzes"
@@ -39,6 +44,12 @@ class QuizStartView(views.APIView):
 
 @extend_schema(request=QuizAnswerRequestSerializer, responses=QuizAnswerResponseSerializer)
 class QuizAnswerView(views.APIView):
+    """Answer a quiz question and advance the session.
+
+    PL: Przetwarza odpowiedź użytkownika na bieżące pytanie, aktualizuje
+    licznik poprawnych odpowiedzi i przesuwa wskaźnik. Zwraca stan sesji
+    oraz dane pytania (dla klienta).
+    """
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "quizzes"

@@ -9,6 +9,10 @@ from .serializers import ExamSyllabusSerializer
 
 @extend_schema(responses=ExamSyllabusSerializer)
 class ExamSyllabusView(views.APIView):
+    """Return published exam syllabus for a given belt.
+
+    PL: Zwraca opublikowany sylabus egzaminacyjny dla podanego pasa (`belt`).
+    """
     permission_classes = [AllowAny]
     class DummySerializer:
         pass

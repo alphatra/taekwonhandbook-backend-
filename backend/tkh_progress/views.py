@@ -8,6 +8,16 @@ from .serializers import ProgressSerializer
 
 
 class ProgressViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    """User progress upsert and listing.
+
+    PL: Idempotentny upsert postępu nauki użytkownika oraz listowanie własnego
+    postępu. Tworzenie/aktualizacja łączy się po `(user,item_type,item_id)` i
+    stosuje prostą politykę merge (nie zmniejszamy wyniku/streaku).
+
+    EN: Idempotent upsert of the user's learning progress and listing of own
+    records. Matched by `(user,item_type,item_id)` with merge policy that avoids
+    decreasing `score`/`streaks`.
+    """
     serializer_class = ProgressSerializer
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]

@@ -24,6 +24,13 @@ from .serializers import SearchResponseSerializer
     responses=SearchResponseSerializer,
 )
 class SearchView(APIView):
+    """Unified search across techniques and tuls with Meilisearch fallback.
+
+    PL: Zunifikowane wyszukiwanie (techniques/tuls). Najpierw Meilisearch,
+    a w razie braku usługi – fallback do zapytań DB. Throttling per-scope.
+
+    EN: Unified search with Meilisearch first, then database fallback.
+    """
     permission_classes = [AllowAny]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "search"
