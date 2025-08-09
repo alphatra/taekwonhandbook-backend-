@@ -52,6 +52,8 @@ nav:
   - How‑to:
       - howto-jwt.pl.md
       - howto-etag.pl.md
+      - howto-filters.pl.md
+      - howto-upload.pl.md
   - API:
       - api/index.pl.md
   - Flows:

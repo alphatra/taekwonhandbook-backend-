@@ -62,6 +62,8 @@ nav:
   - How‑to:
       - howto-jwt.pl.md
       - howto-etag.pl.md
+      - howto-filters.pl.md
+      - howto-upload.pl.md
   - Reference:
       - reference/core.pl.md
       - reference/apps.pl.md
