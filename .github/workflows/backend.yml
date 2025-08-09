@@ -21,10 +21,22 @@ jobs:
       - uses: eifinger/setup-rye@v3
         with:
           version: "0.44.0"
+      - name: Verify Rye
+        run: |
+          which rye || true
+          rye --version
       - name: Pin Python and sync
         run: |
           rye pin 3.12
-          rye sync
+          rye sync -v
+      - name: Show tool versions
+        run: |
+          rye run python -V
+          rye run pip --version
+          rye run ruff --version
+      - name: Freeze top deps
+        run: |
+          rye run python -m pip freeze | head -n 50
       - name: Ruff (format)
         run: rye run ruff format .
       - name: Ruff (fix)
