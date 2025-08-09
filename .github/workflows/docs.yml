@@ -31,16 +31,15 @@ jobs:
           rye sync -v
 
       - name: Generate OpenAPI (drf-spectacular)
-        working-directory: backend
         env:
           DJANGO_SETTINGS_MODULE: core.settings
         run: |
-          mkdir -p ../docs/api
-          ../scripts/export_openapi.sh > ../docs/api/openapi.json
+          mkdir -p docs/api
+          rye run python backend/manage.py spectacular --file docs/api/openapi.json
 
       - name: Build MkDocs site (PL/EN)
         run: |
-          rye run mkdocs build -f docs/mkdocs.yml -d site
+          rye run mkdocs build -f docs/mkdocs.yml -d docs/site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
