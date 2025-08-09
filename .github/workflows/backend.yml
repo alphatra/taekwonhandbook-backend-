@@ -42,13 +42,7 @@ jobs:
       - name: Django checks
         run: rye run python backend/manage.py check
       - name: Migrations check
-        run: rye run python - << 'PY'
-          import subprocess
-          out = subprocess.run(["rye","run","python","backend/manage.py","makemigrations","--check","--dry-run"], capture_output=True, text=True)
-          print(out.stdout)
-          print(out.stderr)
-          raise SystemExit(out.returncode)
-          PY
+        run: rye run python backend/manage.py makemigrations --check --dry-run
       - name: Pytest
         env:
           DJANGO_SETTINGS_MODULE: core.settings
