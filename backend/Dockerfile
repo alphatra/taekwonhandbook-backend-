@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # in the working directory. Copy minimal project files before installing.
 COPY requirements.lock /app/requirements.lock
 COPY pyproject.toml /app/pyproject.toml
+COPY README.md /app/README.md
 COPY src /app/src
 RUN pip install --upgrade pip && pip install -r /app/requirements.lock
 
