@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Entitlement, Plan, Subscription
+from .models import Club, ClubMember, Entitlement, Plan, Subscription
 
 
 class PlanSerializer(serializers.ModelSerializer):
@@ -28,3 +28,24 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             "seats",
         ]
 
+class ClubSerializer(serializers.ModelSerializer):
+    plan = PlanSerializer()
+
+    class Meta:
+        model = Club
+        fields = [
+            "id",
+            "name",
+            "plan",
+            "seats_total",
+            "seats_used",
+            "logo_url",
+            "created_at",
+            "updated_at",
+        ]
+
+
+class ClubMemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClubMember
+        fields = ["club", "user", "role", "created_at"]

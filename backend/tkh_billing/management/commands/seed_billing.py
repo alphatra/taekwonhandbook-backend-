@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
-
-from tkh_billing.models import Entitlement, Plan
+from tkh_billing.models import Plan
 
 
 class Command(BaseCommand):

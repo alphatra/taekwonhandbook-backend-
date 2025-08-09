@@ -78,3 +78,15 @@ class AdPolicy(models.Model):
     session_cap = models.PositiveIntegerField(default=3)
     last_shown_at = models.DateTimeField(null=True, blank=True)
 
+
+class WebhookEvent(models.Model):
+    provider = models.CharField(max_length=16)  # stripe|revenuecat
+    event_id = models.CharField(max_length=128)
+    signature_valid = models.BooleanField(default=False)
+    received_at = models.DateTimeField(auto_now_add=True)
+    processed_at = models.DateTimeField(null=True, blank=True)
+    payload = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        unique_together = [("provider", "event_id")]
+
