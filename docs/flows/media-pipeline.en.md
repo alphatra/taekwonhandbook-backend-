@@ -1,19 +1,9 @@
 ## Video pipeline (upload → transcode → thumbnails)
 
-```mermaid
-sequenceDiagram
-    participant FE as Flutter
-    participant API as Django API
-    participant S3 as S3/MinIO
-    participant WRK as Celery Worker
-
-    FE->>API: POST /api/v1/media/upload (filename)
-    API-->>FE: presigned POST (url, fields)
-    FE->>S3: POST (multipart) with file
-    FE->>API: POST /api/v1/media/complete (key, kind)
-    API->>WRK: transcode_media.delay(asset_id)
-    WRK->>S3: GET original
-    WRK->>S3: PUT renditions + thumbnails
-    WRK-->>API: update status=ready
-```
+Steps:
+1. FE: POST /api/v1/media/upload (filename)
+2. API: returns presigned POST (url, fields)
+3. FE: upload multipart to S3/MinIO
+4. FE: POST /api/v1/media/complete (key, kind)
+5. API: Celery transcode_media(asset_id) → renditions + thumbnails
 
