@@ -39,7 +39,7 @@ jobs:
 
       - name: Build MkDocs site (PL/EN)
         run: |
-          rye run mkdocs build -f docs/mkdocs.yml -d site
+          rye run mkdocs build -f docs/mkdocs.yml
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

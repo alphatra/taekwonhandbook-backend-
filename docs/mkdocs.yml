@@ -1,6 +1,7 @@
 site_name: Taekwon‑Do Handbook — Backend Docs
 site_url: https://alphatra.github.io/taekwonhandbook-backend-
 docs_dir: .
+site_dir: ../site
 theme:
   name: material
   language: pl
