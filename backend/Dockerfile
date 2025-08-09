@@ -12,7 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential libpq-dev curl && rm -rf /var/lib/apt/lists/*
 
 # Dependencies
+# Rye lock includes "-e file:." which requires the project metadata to be present
+# in the working directory. Copy minimal project files before installing.
 COPY requirements.lock /app/requirements.lock
+COPY pyproject.toml /app/pyproject.toml
+COPY src /app/src
 RUN pip install --upgrade pip && pip install -r /app/requirements.lock
 
 # App code
