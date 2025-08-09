@@ -4,7 +4,7 @@ title: Aktywny Kontekst — decyzje, ADR, zmiany schematu
 version: 1.0.0
 status: draft
 tags: [adr, checklist, changes]
-updated: 2025-08-08
+updated: 2025-08-09
 owner: core-arch
 ---
 
@@ -22,6 +22,7 @@ owner: core-arch
 - ENT.TECHNIQUE.v1 — definicja modelu i endpointów (Django/DRF), i18n, signed URLs.
 - ENT.TUL.v1 — kroki, tempo, mirror; wideo wielobitrate.
 - ENT.MEDIA.v1 — pipeline upload→transcode→thumbnails.
+ - ENT.BILLING.v1 — plany/subskrypcje/entitlements, reklamy z cappingiem, webhooki providerów.
 
 ## Checklisty wydania (MVP)
 - OpenAPI wygenerowane i opublikowane; klient Dart wygenerowany.
@@ -75,4 +76,20 @@ owner: core-arch
 - Uzasadnienie: relacyjne modelowanie; proste zapytania i panel admina bez JSON.
 - Wpływ: migracje; aktualizacja serializerów i widoków; dodane filtry.
 - Koszt zmiany: niski/średni (migracje i UI admina).
+
+## ADR‑011: Model monetyzacji — Free + Pro + Club
+- Decyzja: Wszystkie treści dostępne za darmo (Free) z rzadkimi fullscreen ads (cap session/daily, cooldown). Plan Pro wyłącza reklamy i daje komfort offline; Plan Club umożliwia funkcje zespołowe (quizy klubowe, seat’y, analityka).
+- Wpływ (BE): nowa aplikacja `tkh_billing` (Plan, Subscription, Entitlement, Club, ClubMember, AdPolicy); endpointy: `GET /billing/plans`, `GET /billing/me`, `GET /ads/should-show`, `GET /billing/entitlements/token`, webhooki `POST /billing/webhooks/(stripe|revenuecat)`.
+- Wpływ (FE): integracja z RevenueCat/Stripe, egzekwowanie `no_ads`, capy po stronie SDK + serwerowa decyzja.
+- Koszt zmiany: średni (integracja providerów, płatne testy sandbox).
+
+## ADR‑012: Anti‑scraping i polityka danych
+- Decyzja: `DisallowScrapingMiddleware` (nagłówki: `nosniff`, `DENY`, `X‑Robots‑Tag: noindex`), `robots.txt` = `Disallow: /`, otwarty kod Apache‑2.0, treści/dane zastrzeżone (NOTICE/ToS).
+- Uzasadnienie: maksymalnie otwarty kod przy ochronie treści; sygnały dla botów i wyszukiwarek.
+- Wpływ: brak zmian funkcjonalnych; lepsza zgodność prawna i ograniczenie indeksacji.
+- Koszt zmiany: niski.
+
+## Docs: public/private portal
+- Public: MkDocs Material i18n (PL/EN), How‑to (JWT, ETag, Filters, Upload), API (Swagger UI), Legal.
+- Private ZIP (Actions Artifact): pełna dokumentacja łącznie z Reference (mkdocstrings).
 

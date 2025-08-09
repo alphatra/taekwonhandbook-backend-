@@ -4,7 +4,7 @@ title: Kontekst Techniczny — Architektura i Stack
 version: 1.0.0
 status: approved
 tags: [architecture, backend, frontend, devops]
-updated: 2025-08-08
+updated: 2025-08-09
 owner: platform-arch
 ---
 
@@ -17,6 +17,8 @@ owner: platform-arch
 - Baza: Postgres. Serwowanie: Nginx → Gunicorn/Uvicorn (ASGI).
  - Versioning: API pod `/api/v1/*`; docs pod `/api/docs`, schema pod `/api/schema`.
  - Observability: logi JSON (Nginx/Gunicorn/Django) z `X-Request-ID`; w DEV logi Rich.
+ - Billing: `tkh_billing` (Plan/Subscription/Entitlement/Club/AdPolicy, webhooks Stripe/RevenueCat, token entitlements, `ads/should-show`).
+ - Docs: MkDocs Material (PL/EN), public subset na Pages + prywatny ZIP z pełnym Reference.
 
 ## Kluczowe modele (skrót)
 - Technique(id, names{pl,en,kr}, audio, category, minBelt, keyPoints[], commonMistakes[], videos{front,side,slow}, safety, tags[])

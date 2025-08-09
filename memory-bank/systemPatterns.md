@@ -4,7 +4,7 @@ title: Wzorce Systemowe — Offline‑first, Wideo, SRS, Wyszukiwanie, Sync
 version: 1.0.0
 status: approved
 tags: [patterns, offline, srs, video, search, syncing]
-updated: 2025-08-08
+updated: 2025-08-09
 owner: platform-arch
 ---
 
@@ -34,6 +34,11 @@ owner: platform-arch
 
 ## Bezpieczeństwo i prywatność
 - JWT rotacja/refresh, throttling per IP/user, CORS/CSP. Brak PII w eventach produktowych. Signed URLs, minimal scope.
+
+## Billing i reklamy (wzorzec)
+- Entitlements‑driven UI: klient pobiera `GET /billing/entitlements/token` i trzyma krótkożyjący token (JWS) w pamięci; przy starcie i co TTL odświeża.
+- Reklamy fullscreen: decyzja serwera `GET /ads/should-show` łączy `AdPolicy` (cap daily/session, cooldown) + entitlements (`no_ads`). SDK AdMob pilnuje frequency capping po swojej stronie.
+- Webhooki: `WebhookEvent` dedupe, weryfikacja podpisu, mapowanie produktów → entitlements, idempotentne włączenie/wyłączenie uprawnień.
 
 ## Schematy API (zarysy)
 - GET /api/v1/techniques?etag=... → 200 { count, next, previous, results:[...] } + ETag / 304
