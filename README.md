@@ -44,3 +44,13 @@
 # taekwonhandbook
 
 Describe your project here.
+
+## License & Content Policy
+
+- Code: Apache-2.0 (see `LICENSE`).
+- Content/Data: NOT covered by the open-source license. Any datasets, media,
+  texts, syllabus materials, and database exports are proprietary and may not be
+  copied, redistributed or published without explicit permission. See `NOTICE`.
+
+Planned monetization: subscription features are compatible with Apache-2.0; the
+license allows SaaS use while keeping proprietary content closed.
