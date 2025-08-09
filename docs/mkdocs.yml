@@ -27,7 +27,6 @@ markdown_extensions:
   - pymdownx.arithmatex
 plugins:
   - search
-  - search
   - mkdocstrings:
       handlers:
         python:

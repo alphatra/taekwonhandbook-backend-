@@ -39,12 +39,12 @@ jobs:
 
       - name: Build MkDocs site (PL/EN)
         run: |
-          rye run mkdocs build -f docs/mkdocs.yml -d docs/site
+          rye run mkdocs build -f docs/mkdocs.yml -d site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/site
+          publish_dir: site
           force_orphan: true
 
