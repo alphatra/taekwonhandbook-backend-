@@ -1,5 +1,6 @@
 site_name: Taekwon‑Do Handbook — Backend Docs
 site_url: https://alphatra.github.io/taekwonhandbook-backend-
+docs_dir: .
 theme:
   name: material
   language: pl
@@ -16,8 +17,6 @@ theme:
     - scheme: slate
       primary: indigo
       accent: green
-  logo: assets/logo.png
-  favicon: assets/favicon.png
 markdown_extensions:
   - admonition
   - codehilite
