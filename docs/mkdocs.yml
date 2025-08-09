@@ -1,0 +1,49 @@
+site_name: Taekwon‑Do Handbook — Backend Docs
+site_url: https://alphatra.github.io/taekwonhandbook-backend-
+theme:
+  name: material
+  language: pl
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.arithmatex
+plugins:
+  - search
+  - mermaid2
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            separate_signature: true
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - build: true
+          default: true
+          locale: pl
+          name: Polski
+        - build: true
+          locale: en
+          name: English
+nav:
+  - index.pl.md
+  - Guides:
+      - getting-started.pl.md
+      - architecture.pl.md
+  - API:
+      - openapi: api/openapi.json
+  - Reference:
+      - reference/index.pl.md
+

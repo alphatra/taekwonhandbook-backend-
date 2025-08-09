@@ -1,0 +1,50 @@
+name: Build & Deploy Docs
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - "backend/**"
+      - "pyproject.toml"
+      - "README.md"
+      - "docs/**"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Rye
+        uses: eifinger/setup-rye@v3
+        with:
+          version: "0.44.0"
+
+      - name: Sync Python deps
+        run: |
+          rye pin 3.12
+          rye sync -v
+
+      - name: Generate OpenAPI (drf-spectacular)
+        working-directory: backend
+        env:
+          DJANGO_SETTINGS_MODULE: core.settings
+        run: |
+          ../scripts/export_openapi.sh > ../docs/api/openapi.json
+
+      - name: Build MkDocs site (PL/EN)
+        run: |
+          rye run mkdocs build -f docs/mkdocs.yml -d site
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/site
+          force_orphan: true
+
