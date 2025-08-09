@@ -129,6 +129,7 @@ urlpatterns = [
     path("api/v1/", include("tkh_media.urls")),
     path("api/v1/", include("tkh_search.urls")),
     path("api/v1/", include("tkh_quizzes.urls")),
+    path("api/v1/", include("tkh_billing.urls")),
     path("api/v1/", include("tkh_exams.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(

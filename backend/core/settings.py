@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "tkh_search",
     "tkh_quizzes",
     "tkh_exams",
+    "tkh_billing",
 ]
 
 MIDDLEWARE = [
@@ -169,6 +170,8 @@ REST_FRAMEWORK = {
         "search": os.getenv("DRF_THROTTLE_SEARCH", "60/min"),
         "quizzes": os.getenv("DRF_THROTTLE_QUIZZES", "60/min"),
         "progress": os.getenv("DRF_THROTTLE_PROGRESS", "120/min"),
+        "billing": os.getenv("DRF_THROTTLE_BILLING", "60/min"),
+        "ads": os.getenv("DRF_THROTTLE_ADS", "60/min"),
     },
     "EXCEPTION_HANDLER": "core.exceptions.custom_exception_handler",
 }
