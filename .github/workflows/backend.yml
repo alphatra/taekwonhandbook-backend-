@@ -32,11 +32,7 @@ jobs:
       - name: Show tool versions
         run: |
           rye run python -V
-          rye run python -m pip --version
           rye run ruff --version
-      - name: Freeze top deps
-        run: |
-          rye run python -m pip freeze | head -n 50
       - name: Ruff (format)
         run: rye run ruff format .
       - name: Ruff (fix)
