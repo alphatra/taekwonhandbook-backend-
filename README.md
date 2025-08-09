@@ -7,6 +7,9 @@
 4. Migracje: `rye run python backend/manage.py migrate`
 5. Uruchom serwer: `rye run python backend/manage.py runserver`
 6. API docs: `http://127.0.0.1:8000/api/docs` (Swagger), schema: `/api/schema`
+   
+Public Docs (Pages): https://alphatra.github.io/taekwonhandbook-backend-/
+Prywatny ZIP (Actions → Build & Deploy Docs → Artifacts): `private-docs`
 
 ## Usługi
 - Postgres: `localhost:5432` (u: tkh, p: tkhpass, db: taekwonhandbook)

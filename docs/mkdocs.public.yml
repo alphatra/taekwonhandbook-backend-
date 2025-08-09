@@ -49,6 +49,9 @@ nav:
   - Guides:
       - getting-started.pl.md
       - architecture.pl.md
+  - How‑to:
+      - howto-jwt.pl.md
+      - howto-etag.pl.md
   - API:
       - api/index.pl.md
   - Flows:

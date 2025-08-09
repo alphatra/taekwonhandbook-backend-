@@ -59,6 +59,9 @@ nav:
       - architecture.pl.md
   - API:
       - api/index.pl.md
+  - How‑to:
+      - howto-jwt.pl.md
+      - howto-etag.pl.md
   - Reference:
       - reference/core.pl.md
       - reference/apps.pl.md

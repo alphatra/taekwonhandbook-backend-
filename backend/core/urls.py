@@ -101,6 +101,11 @@ def root(_request):
       <li><a href=\"/api/v1/search?q=Ap&type=technique\">/api/v1/search</a></li>
     </ul>
     <p>Auth (JWT): <code>POST /api/auth/token/</code></p>
+    <h3>Legal</h3>
+    <ul>
+      <li><a href="https://alphatra.github.io/taekwonhandbook-backend-/license.pl.md" target="_blank">License</a></li>
+      <li><a href="https://alphatra.github.io/taekwonhandbook-backend-/terms.pl.md" target="_blank">ToS</a></li>
+    </ul>
   </body>
 </html>
 """
