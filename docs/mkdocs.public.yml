@@ -41,6 +41,9 @@ plugins:
         - build: true
           locale: en
           name: English
+extra:
+  generator: false
+  template_dir: overrides
 nav:
   - index.pl.md
   - Guides:
@@ -52,4 +55,7 @@ nav:
       - flows/media-pipeline.pl.md
       - flows/search-fallback.pl.md
       - flows/offline-sync.pl.md
+  - Legal:
+      - license.pl.md
+      - terms.pl.md
 

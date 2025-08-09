@@ -25,3 +25,13 @@ def doc_ping(request: HttpRequest) -> JsonResponse:
 
     return JsonResponse({"ok": True})
 
+
+def robots_txt(_request: HttpRequest) -> JsonResponse:
+    """Disallow indexing/scraping via robots.txt.
+
+    PL: Proaktywnie blokuje indeksowanie (noindex/nofollow). To soft measure,
+    nie stanowi zgody na scrapowanie.
+    """
+
+    return JsonResponse("User-agent: *\nDisallow: /\n", status=200, content_type="text/plain", safe=False)
+

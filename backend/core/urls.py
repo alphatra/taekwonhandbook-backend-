@@ -25,7 +25,7 @@ from django.http import HttpResponse, JsonResponse
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-from .views import doc_ping
+from .views import doc_ping, robots_txt
 
 try:
     import meilisearch  # type: ignore
@@ -116,6 +116,7 @@ urlpatterns = [
     path("favicon.ico", favicon),
     path("admin/", admin.site.urls),
     path("health/", health, name="health"),
+    path("robots.txt", robots_txt, name="robots"),
     path("ping/", doc_ping, name="ping"),
     path("api/v1/", include("tkh_lexicon.urls")),
     path("api/v1/", include("tkh_patterns.urls")),

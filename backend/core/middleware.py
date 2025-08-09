@@ -57,3 +57,22 @@ class RequestLogMiddleware:
             except Exception:
                 pass
 
+
+class DisallowScrapingMiddleware:
+    """Add anti-scraping headers and basic anti-embedding.
+
+    Nie zastępuje ochrony prawnej (NOTICE/ToS), ale utrudnia automatyczne kopiowanie
+    i komunikuje politykę klientom (np. botom, wyszukiwarkom).
+    """
+
+    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
+        self.get_response = get_response
+
+    def __call__(self, request: HttpRequest) -> HttpResponse:
+        response = self.get_response(request)
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("X-Robots-Tag", "noindex, nofollow, noarchive")
+        response.headers.setdefault("Cache-Control", "no-store")
+        return response
+
