@@ -2,5 +2,5 @@
 
 Sekcja wypełniana automatycznie przez mkdocstrings.
 
-::: backend.core
+::: core
 
