@@ -36,7 +36,7 @@ plugins:
             show_source: true
             separate_signature: true
           paths:
-            - backend
+            - ../backend
   - swagger-ui-tag
   - i18n:
       docs_structure: suffix
