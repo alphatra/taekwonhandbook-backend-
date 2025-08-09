@@ -27,6 +27,9 @@ plugins:
             docstring_style: google
             show_source: true
             separate_signature: true
+          paths:
+            - backend
+  - swagger-ui-tag
   - i18n:
       docs_structure: suffix
       languages:
@@ -43,7 +46,8 @@ nav:
       - getting-started.pl.md
       - architecture.pl.md
   - API:
-      - openapi: api/openapi.json
+      - api/index.pl.md
   - Reference:
-      - reference/index.pl.md
+      - reference/core.pl.md
+      - reference/apps.pl.md
 

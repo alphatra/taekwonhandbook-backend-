@@ -25,6 +25,8 @@ from django.http import HttpResponse, JsonResponse
 from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+from .views import doc_ping
+
 try:
     import meilisearch  # type: ignore
 except Exception:  # pragma: no cover
@@ -114,6 +116,7 @@ urlpatterns = [
     path("favicon.ico", favicon),
     path("admin/", admin.site.urls),
     path("health/", health, name="health"),
+    path("ping/", doc_ping, name="ping"),
     path("api/v1/", include("tkh_lexicon.urls")),
     path("api/v1/", include("tkh_patterns.urls")),
     path("api/v1/", include("tkh_progress.urls")),
