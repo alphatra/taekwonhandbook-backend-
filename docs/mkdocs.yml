@@ -27,7 +27,7 @@ markdown_extensions:
   - pymdownx.arithmatex
 plugins:
   - search
-  - mermaid2-plugin
+  - mermaid2
   - mkdocstrings:
       handlers:
         python:
