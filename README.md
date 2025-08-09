@@ -1,0 +1,46 @@
+# ITF Taekwon‑Do Handbook — Backend Dev
+
+## Szybki start (dev)
+1. Zainstaluj zależności: `rye sync`
+2. Skonfiguruj środowisko: skopiuj `.env.example` → `.env` i dostosuj.
+3. Uruchom usługi: `docker compose up -d` (Postgres, Redis, MinIO, Meilisearch)
+4. Migracje: `rye run python backend/manage.py migrate`
+5. Uruchom serwer: `rye run python backend/manage.py runserver`
+6. API docs: `http://127.0.0.1:8000/api/docs` (Swagger), schema: `/api/schema`
+
+## Usługi
+- Postgres: `localhost:5432` (u: tkh, p: tkhpass, db: taekwonhandbook)
+- Redis: `localhost:6379`
+- MinIO: `http://localhost:9000` (console: `http://localhost:9001`)
+- Meilisearch: `http://localhost:7700`
+
+## Moduły backendu
+- Auth (JWT), Lexicon (`techniques`), Patterns (`tuls`), Progress, Media (upload/complete), Search, Quizzes.
+
+## Produkcja (ENV + uruchomienie)
+- Kluczowe ENV (prod):
+  - Django: `DJANGO_DEBUG=0`, `DJANGO_ALLOWED_HOSTS=api.example.com`, `CSRF_TRUSTED_ORIGINS=https://api.example.com`, `DJANGO_SECRET_KEY=<strong-secret>`
+  - Security: `SECURE_SSL_REDIRECT=1`, `SECURE_HSTS_SECONDS=31536000`, `CDN_ORIGIN=https://cdn.example.com`
+  - DB: `DB_ENGINE=django.db.backends.postgresql`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`
+  - Redis: `REDIS_URL=redis://redis:6379/0`
+  - Storage: `S3_ENDPOINT_URL`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`
+  - Search: `MEILISEARCH_URL`, `MEILISEARCH_API_KEY`
+
+- Build + run:
+  - `docker compose -f docker-compose.prod.yml build`
+  - `docker compose -f docker-compose.prod.yml up -d`
+  - Logs: `docker compose -f docker-compose.prod.yml logs -f nginx` (JSON access), `... logs -f web`
+
+- OpenAPI eksport: `./scripts/export_openapi.sh` → plik `openapi.json`
+
+## Health i Celery (dev)
+- Health endpoint: `GET /health/` zwraca `{"status":"ok|degraded","db":...,"redis":...,"meilisearch":...}`
+- Usługi pomocnicze (dev):
+  - `docker compose up -d postgres redis minio meilisearch celery-beat celery-worker`
+  - logi: `docker compose logs -f redis`, `docker compose logs -f meilisearch`, `docker compose logs -f celery-beat`, `docker compose logs -f celery-worker`
+- Uruchom backend lokalnie: `rye run python backend/manage.py runserver`
+- Szybki seed: `rye run python backend/manage.py seed_demo`
+
+# taekwonhandbook
+
+Describe your project here.

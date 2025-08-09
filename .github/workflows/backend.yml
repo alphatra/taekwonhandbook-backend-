@@ -1,0 +1,44 @@
+name: Backend CI
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - "pyproject.toml"
+      - "requirements*.lock"
+      - ".github/workflows/backend.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - "pyproject.toml"
+      - "requirements*.lock"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: eifinger/setup-rye@v3
+        with:
+          rye-version: "0.44.0"
+      - name: Pin Python and sync
+        run: |
+          rye pin 3.12
+          rye sync
+      - name: Ruff (lint)
+        run: rye run ruff check .
+      - name: Django checks
+        run: rye run python backend/manage.py check
+      - name: Migrations check
+        run: rye run python - << 'PY'
+          import subprocess
+          out = subprocess.run(["rye","run","python","backend/manage.py","makemigrations","--check","--dry-run"], capture_output=True, text=True)
+          print(out.stdout)
+          print(out.stderr)
+          raise SystemExit(out.returncode)
+          PY
+      - name: Pytest
+        env:
+          DJANGO_SETTINGS_MODULE: core.settings
+        run: rye run pytest -q
+
