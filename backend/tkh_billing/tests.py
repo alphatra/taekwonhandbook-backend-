@@ -56,6 +56,29 @@ class ClubApiTests(TestCase):
         resp = client2.post(f"/api/v1/billing/clubs/{club_id}/leave")
         self.assertEqual(resp.status_code, 204)
 
+    def test_list_filter_and_order(self):
+        # create two clubs
+        self.client.force_login(self.owner)
+        resp = self.client.post(
+            "/api/v1/billing/clubs",
+            data=json.dumps({"name": "Zeta Club", "plan": "club", "seats_total": 2}),
+            content_type="application/json",
+        )
+        resp = self.client.post(
+            "/api/v1/billing/clubs",
+            data=json.dumps({"name": "Alpha Dojang", "plan": "club", "seats_total": 2}),
+            content_type="application/json",
+        )
+        # filter q=Alpha
+        resp = self.client.get("/api/v1/billing/clubs?q=Alpha")
+        self.assertEqual(resp.status_code, 200)
+        data = resp.json()
+        self.assertTrue(any("Alpha" in c["name"] for c in data))
+        # ordering by name asc
+        resp = self.client.get("/api/v1/billing/clubs?ordering=name")
+        names = [c["name"] for c in resp.json()]
+        self.assertEqual(names, sorted(names))
+
 
 class StripeWebhookTests(TestCase):
     def setUp(self) -> None:

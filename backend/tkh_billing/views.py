@@ -199,6 +199,10 @@ class ClubListCreateView(APIView):
 
     @extend_schema(
         tags=["clubs"],
+        parameters=[
+            OpenApiParameter(name="q", description="filter by name (icontains)", required=False, type=str),
+            OpenApiParameter(name="ordering", description="order by one of: -created_at,created_at,name,seats_used", required=False, type=str),
+        ],
         responses={200: ClubSerializer(many=True)},
         examples=[
             OpenApiExample(
@@ -219,7 +223,17 @@ class ClubListCreateView(APIView):
         ],
     )
     def get(self, request):
-        clubs = Club.objects.filter(owner=request.user).order_by("-created_at")
+        clubs = Club.objects.filter(owner=request.user)
+        q = (request.query_params.get("q") or "").strip()
+        if q:
+            clubs = clubs.filter(name__icontains=q)
+        allowed_order = {"created_at", "name", "seats_used"}
+        ordering = request.query_params.get("ordering") or "-created_at"
+        base = ordering.lstrip("-")
+        if base in allowed_order:
+            clubs = clubs.order_by(ordering)
+        else:
+            clubs = clubs.order_by("-created_at")
         return Response(ClubSerializer(clubs, many=True).data)
 
     @extend_schema(

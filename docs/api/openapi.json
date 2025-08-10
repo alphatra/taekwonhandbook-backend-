@@ -229,6 +229,17 @@ paths:
         PL: Lista i tworzenie klubów właściciela.
 
         EN: List and create owner clubs.
+      parameters:
+      - in: query
+        name: ordering
+        schema:
+          type: string
+        description: 'order by one of: -created_at,created_at,name,seats_used'
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: filter by name (icontains)
       tags:
       - clubs
       security:
