@@ -64,6 +64,7 @@ nav:
       - howto-etag.pl.md
       - howto-filters.pl.md
       - howto-upload.pl.md
+      - howto-media.pl.md
       - howto-billing.pl.md
       - howto-search.pl.md
       - howto-clubs.pl.md
@@ -71,6 +72,7 @@ nav:
       - howto-etag.en.md
       - howto-filters.en.md
       - howto-upload.en.md
+      - howto-media.en.md
       - howto-billing.en.md
       - howto-search.en.md
       - howto-clubs.en.md
