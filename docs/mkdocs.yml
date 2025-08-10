@@ -64,6 +64,7 @@ nav:
       - howto-etag.pl.md
       - howto-filters.pl.md
       - howto-upload.pl.md
+      - howto-billing.pl.md
   - Reference:
       - reference/core.pl.md
       - reference/apps.pl.md

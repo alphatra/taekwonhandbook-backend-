@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.views import APIView
+from drf_spectacular.utils import OpenApiExample, OpenApiParameter, OpenApiResponse, extend_schema
 
 from .models import AdPolicy, Club, ClubMember, Entitlement, Plan, Subscription, WebhookEvent
 from .serializers import (
@@ -24,20 +25,24 @@ from .serializers import (
 
 
 class PlansView(APIView):
+    """PL: Lista planów subskrypcyjnych (Free/Pro/Club).\n\nEN: List available subscription plans (Free/Pro/Club)."""
     permission_classes = []
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "billing"
 
+    @extend_schema(tags=["billing"], responses=OpenApiResponse(response=PlanSerializer(many=True)))
     def get(self, _request):
         plans = Plan.objects.order_by("price_cents")
         return Response(PlanSerializer(plans, many=True).data)
 
 
 class MeBillingView(APIView):
+    """PL: Moje subskrypcje i uprawnienia.\n\nEN: Current user's subscriptions and entitlements."""
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "billing"
 
+    @extend_schema(tags=["billing"], responses={200: dict})
     def get(self, request):
         subs = Subscription.objects.filter(user=request.user, status="active").order_by("-updated_at")
         ents = Entitlement.objects.filter(user=request.user, active=True)
@@ -49,10 +54,12 @@ class MeBillingView(APIView):
 
 
 class ShouldShowAdView(APIView):
+    """PL: Decyzja o wyświetleniu reklamy fullscreen z uwzględnieniem capów i entitlementów.\n\nEN: Server-side ad decision (caps/cooldown/no_ads entitlement)."""
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "ads"
 
+    @extend_schema(tags=["ads"], responses={200: dict})
     def get(self, request):
         # no ads if entitlement active
         if Entitlement.objects.filter(user=request.user, key="no_ads", active=True).exists():
@@ -72,10 +79,12 @@ class ShouldShowAdView(APIView):
 
 
 class EntitlementsTokenView(APIView):
+    """PL: Krótkotrwały token z listą uprawnień (TTL 5 min).\n\nEN: Short-lived entitlements token (5 min TTL)."""
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "billing"
 
+    @extend_schema(tags=["billing"], responses={200: dict})
     def get(self, request):
         ents = Entitlement.objects.filter(user=request.user, active=True).values_list("key", flat=True)
         # krótkie TTL (5 min) i timestamp do walidacji po stronie klienta
@@ -89,9 +98,11 @@ class EntitlementsTokenView(APIView):
 
 
 class StripeWebhookView(APIView):
+    """PL: Webhook Stripe (idempotencja, minimalne mapowanie zdarzeń).\n\nEN: Stripe webhook (idempotent, minimal event mapping)."""
     permission_classes = []
     throttle_classes = []
 
+    @extend_schema(tags=["billing-webhooks"], request=None, responses={200: dict})
     def post(self, request):
         secret = os.getenv("STRIPE_WEBHOOK_SECRET", "")
         sig = request.headers.get("Stripe-Signature", "")
@@ -134,9 +145,11 @@ class StripeWebhookView(APIView):
 
 
 class RevenueCatWebhookView(APIView):
+    """PL: Webhook RevenueCat (prosta weryfikacja HMAC).\n\nEN: RevenueCat webhook (simple HMAC check)."""
     permission_classes = []
     throttle_classes = []
 
+    @extend_schema(tags=["billing-webhooks"], request=None, responses={200: dict})
     def post(self, request):
         try:
             payload = json.loads(request.body.decode() or "{}")
@@ -179,14 +192,41 @@ class RevenueCatWebhookView(APIView):
 
 
 class ClubListCreateView(APIView):
+    """PL: Lista i tworzenie klubów właściciela.\n\nEN: List and create owner clubs."""
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "billing"
 
+    @extend_schema(
+        tags=["clubs"],
+        responses={200: ClubSerializer(many=True)},
+        examples=[
+            OpenApiExample(
+                "ClubList",
+                value=[
+                    {
+                        "id": 1,
+                        "name": "Do jang A",
+                        "plan": {"code": "club", "name": "Club", "price_cents": 5900, "currency": "PLN", "trial_days": 14, "features": {"no_ads": True, "club": True}},
+                        "seats_total": 10,
+                        "seats_used": 3,
+                        "logo_url": "",
+                        "created_at": "2025-08-09T23:38:24Z",
+                        "updated_at": "2025-08-09T23:38:24Z",
+                    }
+                ],
+            )
+        ],
+    )
     def get(self, request):
         clubs = Club.objects.filter(owner=request.user).order_by("-created_at")
         return Response(ClubSerializer(clubs, many=True).data)
 
+    @extend_schema(
+        tags=["clubs"],
+        request=None,
+        responses={201: ClubSerializer},
+    )
     def post(self, request):
         name = str(request.data.get("name") or "").strip()
         plan_code = str(request.data.get("plan") or "club").strip()
@@ -205,10 +245,12 @@ class ClubListCreateView(APIView):
 
 
 class ClubInviteView(APIView):
+    """PL: Zapraszanie użytkownika do klubu (owner only).\n\nEN: Invite user to club (owner only)."""
     permission_classes = [IsAuthenticated]
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "billing"
 
+    @extend_schema(tags=["clubs"], request=None, responses={200: ClubMemberSerializer, 201: ClubMemberSerializer})
     def post(self, request, club_id: int):
         try:
             club = Club.objects.get(id=club_id, owner=request.user)
@@ -224,4 +266,30 @@ class ClubInviteView(APIView):
             club.seats_used += 1
             club.save(update_fields=["seats_used"]) 
         return Response(ClubMemberSerializer(member).data, status=201 if created else 200)
+
+
+class ClubRemoveMemberView(APIView):
+    """PL: Usuwanie członka (nie ownera) i zwolnienie miejsca.\n\nEN: Remove non-owner member and free seat."""
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "billing"
+
+    @extend_schema(tags=["clubs"], responses={204: None})
+    def delete(self, request, club_id: int, user_id: int):
+        try:
+            club = Club.objects.get(id=club_id, owner=request.user)
+        except Club.DoesNotExist:
+            return Response(status=404)
+        try:
+            member = ClubMember.objects.get(club=club, user_id=user_id)
+        except ClubMember.DoesNotExist:
+            return Response(status=404)
+        # owner cannot be removed via this endpoint
+        if member.role == "owner":
+            return Response({"detail": "cannot remove owner"}, status=400)
+        member.delete()
+        if club.seats_used > 0:
+            club.seats_used -= 1
+            club.save(update_fields=["seats_used"]) 
+        return Response(status=204)
 

@@ -1,0 +1,1581 @@
+openapi: 3.0.3
+info:
+  title: ITF Taekwon-Do Handbook API
+  version: 1.0.0
+  description: REST API for mobile/web clients
+paths:
+  /api/auth/token/:
+    post:
+      operationId: auth_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ads/should-show:
+    get:
+      operationId: v1_ads_should_show_retrieve
+      description: |-
+        PL: Decyzja o wyświetleniu reklamy fullscreen z uwzględnieniem capów i entitlementów.
+
+        EN: Server-side ad decision (caps/cooldown/no_ads entitlement).
+      tags:
+      - ads
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/billing/clubs:
+    get:
+      operationId: v1_billing_clubs_list
+      description: |-
+        PL: Lista i tworzenie klubów właściciela.
+
+        EN: List and create owner clubs.
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Club'
+              examples:
+                ClubList:
+                  value:
+                  - - id: 1
+                      name: Do jang A
+                      plan:
+                        code: club
+                        name: Club
+                        price_cents: 5900
+                        currency: PLN
+                        trial_days: 14
+                        features:
+                          no_ads: true
+                          club: true
+                      seats_total: 10
+                      seats_used: 3
+                      logo_url: ''
+                      created_at: '2025-08-09T23:38:24Z'
+                      updated_at: '2025-08-09T23:38:24Z'
+          description: ''
+    post:
+      operationId: v1_billing_clubs_create
+      description: |-
+        PL: Lista i tworzenie klubów właściciela.
+
+        EN: List and create owner clubs.
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Club'
+          description: ''
+  /api/v1/billing/clubs/{club_id}/invite:
+    post:
+      operationId: v1_billing_clubs_invite_create
+      description: |-
+        PL: Zapraszanie użytkownika do klubu (owner only).
+
+        EN: Invite user to club (owner only).
+      parameters:
+      - in: path
+        name: club_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubMember'
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubMember'
+          description: ''
+  /api/v1/billing/clubs/{club_id}/members/{user_id}:
+    delete:
+      operationId: v1_billing_clubs_members_destroy
+      description: |-
+        PL: Usuwanie członka (nie ownera) i zwolnienie miejsca.
+
+        EN: Remove non-owner member and free seat.
+      parameters:
+      - in: path
+        name: club_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/billing/entitlements/token:
+    get:
+      operationId: v1_billing_entitlements_token_retrieve
+      description: |-
+        PL: Krótkotrwały token z listą uprawnień (TTL 5 min).
+
+        EN: Short-lived entitlements token (5 min TTL).
+      tags:
+      - billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/billing/me:
+    get:
+      operationId: v1_billing_me_retrieve
+      description: |-
+        PL: Moje subskrypcje i uprawnienia.
+
+        EN: Current user's subscriptions and entitlements.
+      tags:
+      - billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/billing/plans:
+    get:
+      operationId: v1_billing_plans_retrieve
+      description: |-
+        PL: Lista planów subskrypcyjnych (Free/Pro/Club).
+
+        EN: List available subscription plans (Free/Pro/Club).
+      tags:
+      - billing
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+          description: ''
+  /api/v1/billing/webhooks/revenuecat:
+    post:
+      operationId: v1_billing_webhooks_revenuecat_create
+      description: |-
+        PL: Webhook RevenueCat (prosta weryfikacja HMAC).
+
+        EN: RevenueCat webhook (simple HMAC check).
+      tags:
+      - billing-webhooks
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/billing/webhooks/stripe:
+    post:
+      operationId: v1_billing_webhooks_stripe_create
+      description: |-
+        PL: Webhook Stripe (idempotencja, minimalne mapowanie zdarzeń).
+
+        EN: Stripe webhook (idempotent, minimal event mapping).
+      tags:
+      - billing-webhooks
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/exams/{belt}/syllabus:
+    get:
+      operationId: v1_exams_syllabus_retrieve
+      description: |-
+        Return published exam syllabus for a given belt.
+
+        PL: Zwraca opublikowany sylabus egzaminacyjny dla podanego pasa (`belt`).
+      parameters:
+      - in: path
+        name: belt
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExamSyllabus'
+          description: ''
+  /api/v1/media/:
+    get:
+      operationId: v1_media_list
+      description: Public read-only access to processed media assets with filters/search.
+      parameters:
+      - in: query
+        name: kind
+        schema:
+          type: string
+          enum:
+          - audio
+          - image
+          - video
+        description: |-
+          * `video` - Video
+          * `image` - Image
+          * `audio` - Audio
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: string
+          enum:
+          - failed
+          - processing
+          - ready
+          - uploaded
+        description: |-
+          * `uploaded` - Uploaded
+          * `processing` - Processing
+          * `ready` - Ready
+          * `failed` - Failed
+      - in: query
+        name: techniques
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+        style: form
+      - in: query
+        name: tuls
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+        style: form
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMediaAssetList'
+          description: ''
+  /api/v1/media/{id}/:
+    get:
+      operationId: v1_media_retrieve
+      description: Public read-only access to processed media assets with filters/search.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this media asset.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAsset'
+          description: ''
+  /api/v1/media/complete:
+    post:
+      operationId: v1_media_complete_create
+      description: |-
+        Finalize upload and trigger async transcode pipeline.
+
+        PL: Finalizuje upload (tworzy rekord `MediaAsset`) i uruchamia asynchroniczny
+        pipeline transkodowania (Celery). Zwraca metadane zasobu.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaCompleteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MediaCompleteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MediaCompleteRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAsset'
+          description: ''
+  /api/v1/media/upload:
+    post:
+      operationId: v1_media_upload_create
+      description: |-
+        Generate a minimal S3/MinIO presigned POST for direct upload.
+
+        PL: Generuje minimalny presigned POST (MinIO/S3) do bezpośredniego uploadu
+        z klienta. Zabezpieczone JWT + throttlingiem. Parametr wejściowy: `filename`.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresignUploadRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PresignUploadRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PresignUploadRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignUploadResponse'
+          description: ''
+  /api/v1/progress/:
+    get:
+      operationId: v1_progress_list
+      description: |-
+        User progress upsert and listing.
+
+        PL: Idempotentny upsert postępu nauki użytkownika oraz listowanie własnego
+        postępu. Tworzenie/aktualizacja łączy się po `(user,item_type,item_id)` i
+        stosuje prostą politykę merge (nie zmniejszamy wyniku/streaku).
+
+        EN: Idempotent upsert of the user's learning progress and listing of own
+        records. Matched by `(user,item_type,item_id)` with merge policy that avoids
+        decreasing `score`/`streaks`.
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProgressList'
+          description: ''
+    post:
+      operationId: v1_progress_create
+      description: |-
+        User progress upsert and listing.
+
+        PL: Idempotentny upsert postępu nauki użytkownika oraz listowanie własnego
+        postępu. Tworzenie/aktualizacja łączy się po `(user,item_type,item_id)` i
+        stosuje prostą politykę merge (nie zmniejszamy wyniku/streaku).
+
+        EN: Idempotent upsert of the user's learning progress and listing of own
+        records. Matched by `(user,item_type,item_id)` with merge policy that avoids
+        decreasing `score`/`streaks`.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Progress'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Progress'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Progress'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Progress'
+          description: ''
+  /api/v1/quizzes/{session_id}/answer:
+    post:
+      operationId: v1_quizzes_answer_create
+      description: |-
+        Answer a quiz question and advance the session.
+
+        PL: Przetwarza odpowiedź użytkownika na bieżące pytanie, aktualizuje
+        licznik poprawnych odpowiedzi i przesuwa wskaźnik. Zwraca stan sesji
+        oraz dane pytania (dla klienta).
+      parameters:
+      - in: path
+        name: session_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizAnswerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuizAnswerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuizAnswerRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizAnswerResponse'
+          description: ''
+  /api/v1/quizzes/start:
+    get:
+      operationId: v1_quizzes_start_retrieve
+      description: |-
+        Start a quiz session for the user.
+
+        PL: Tworzy nową sesję quizu (tryb, opcjonalny pas), losuje pytania i
+        zwraca stan sesji. Throttling per-scope, auth wymagane.
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizSession'
+          description: ''
+  /api/v1/search:
+    get:
+      operationId: v1_search_retrieve
+      description: |-
+        Unified search across techniques and tuls with Meilisearch fallback.
+
+        PL: Zunifikowane wyszukiwanie (techniques/tuls). Najpierw Meilisearch,
+        a w razie braku usługi – fallback do zapytań DB. Throttling per-scope.
+
+        EN: Unified search with Meilisearch first, then database fallback.
+      parameters:
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Query string
+      - in: query
+        name: type
+        schema:
+          type: string
+        description: technique|tul
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+          description: ''
+  /api/v1/techniques/:
+    get:
+      operationId: v1_techniques_list
+      description: |-
+        Public read-only listing of techniques.
+
+        PL: Publiczny endpoint tylko do odczytu dla listy technik. Wspiera filtrowanie
+        po `category`, minimalnym pasie (`min_belt`) oraz filtr `hasMedia`, a także
+        wyszukiwanie pełnotekstowe po polu `names` i `tags`.
+
+        EN: Public read-only endpoint for techniques with filters (`category`,
+        `min_belt`, `hasMedia`) and search over `names` and `tags`.
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+      - in: query
+        name: hasMedia
+        schema:
+          type: boolean
+      - in: query
+        name: min_belt
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTechniqueList'
+          description: ''
+  /api/v1/techniques/{id}/:
+    get:
+      operationId: v1_techniques_retrieve
+      description: |-
+        Public read-only listing of techniques.
+
+        PL: Publiczny endpoint tylko do odczytu dla listy technik. Wspiera filtrowanie
+        po `category`, minimalnym pasie (`min_belt`) oraz filtr `hasMedia`, a także
+        wyszukiwanie pełnotekstowe po polu `names` i `tags`.
+
+        EN: Public read-only endpoint for techniques with filters (`category`,
+        `min_belt`, `hasMedia`) and search over `names` and `tags`.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Technika.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Technique'
+          description: ''
+  /api/v1/tuls/:
+    get:
+      operationId: v1_tuls_list
+      description: |-
+        Public read-only listing of tuls (patterns).
+
+        PL: Endpoint publiczny (tylko odczyt) dla układów tul. Umożliwia filtrowanie
+        po `belt` i opcjonalnie `hasMedia`, wyszukiwanie po nazwie oraz sortowanie.
+
+        EN: Public read-only endpoint for patterns with filtering by `belt`, optional
+        `hasMedia` flag, search by `name` and ordering.
+      parameters:
+      - in: query
+        name: belt
+        schema:
+          type: integer
+      - in: query
+        name: hasMedia
+        schema:
+          type: boolean
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTulList'
+          description: ''
+  /api/v1/tuls/{id}/:
+    get:
+      operationId: v1_tuls_retrieve
+      description: |-
+        Public read-only listing of tuls (patterns).
+
+        PL: Endpoint publiczny (tylko odczyt) dla układów tul. Umożliwia filtrowanie
+        po `belt` i opcjonalnie `hasMedia`, wyszukiwanie po nazwie oraz sortowanie.
+
+        EN: Public read-only endpoint for patterns with filtering by `belt`, optional
+        `hasMedia` flag, search by `name` and ordering.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tul.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tul'
+          description: ''
+components:
+  schemas:
+    Club:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 80
+        plan:
+          $ref: '#/components/schemas/Plan'
+        seats_total:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        seats_used:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        logo_url:
+          type: string
+          format: uri
+          maxLength: 200
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - name
+      - plan
+      - updated_at
+    ClubMember:
+      type: object
+      properties:
+        club:
+          type: integer
+        user:
+          type: integer
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - club
+      - created_at
+      - user
+    ExamSyllabus:
+      type: object
+      properties:
+        belt:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Pas
+        required_techniques:
+          type: array
+          items:
+            $ref: '#/components/schemas/Technique'
+          readOnly: true
+        required_tuls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tul'
+          readOnly: true
+        strength_tests:
+          title: Testy siłowe
+        theory_qs:
+          title: Pytania teoretyczne
+        version:
+          type: string
+          maxLength: 20
+        valid_from:
+          type: string
+          format: date-time
+          readOnly: true
+        valid_to:
+          type: string
+          format: date-time
+          nullable: true
+        is_draft:
+          type: boolean
+      required:
+      - belt
+      - required_techniques
+      - required_tuls
+      - valid_from
+    ItemTypeEnum:
+      enum:
+      - technique
+      - tul
+      - exercise
+      - plan
+      - quiz
+      type: string
+      description: |-
+        * `technique` - Technique
+        * `tul` - Tul
+        * `exercise` - Exercise
+        * `plan` - Plan
+        * `quiz` - Quiz
+    MediaAsset:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        file:
+          type: string
+          maxLength: 512
+        kind:
+          $ref: '#/components/schemas/MediaAssetKindEnum'
+        codec:
+          type: string
+          nullable: true
+          maxLength: 64
+        resolutions: {}
+        duration:
+          type: number
+          format: double
+        thumbnails: {}
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        meta: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        techniques:
+          type: array
+          items:
+            $ref: '#/components/schemas/Technique'
+          readOnly: true
+        tuls:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tul'
+          readOnly: true
+      required:
+      - created_at
+      - file
+      - id
+      - kind
+      - status
+      - techniques
+      - tuls
+      - updated_at
+    MediaAssetKindEnum:
+      enum:
+      - video
+      - image
+      - audio
+      type: string
+      description: |-
+        * `video` - Video
+        * `image` - Image
+        * `audio` - Audio
+    MediaCompleteRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        kind:
+          allOf:
+          - $ref: '#/components/schemas/MediaCompleteRequestKindEnum'
+          default: video
+      required:
+      - key
+    MediaCompleteRequestKindEnum:
+      enum:
+      - video
+      - image
+      - audio
+      type: string
+      description: |-
+        * `video` - video
+        * `image` - image
+        * `audio` - audio
+    PaginatedMediaAssetList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaAsset'
+    PaginatedProgressList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Progress'
+    PaginatedTechniqueList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Technique'
+    PaginatedTulList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tul'
+    Plan:
+      type: object
+      properties:
+        code:
+          type: string
+          maxLength: 32
+        name:
+          type: string
+          maxLength: 64
+        price_cents:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        currency:
+          type: string
+          maxLength: 8
+        trial_days:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        features: {}
+      required:
+      - code
+      - name
+    PresignUploadRequest:
+      type: object
+      properties:
+        filename:
+          type: string
+      required:
+      - filename
+    PresignUploadResponse:
+      type: object
+      properties:
+        url:
+          type: string
+        fields:
+          type: object
+          additionalProperties: {}
+      required:
+      - fields
+      - url
+    Progress:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+          readOnly: true
+        item_type:
+          $ref: '#/components/schemas/ItemTypeEnum'
+        item_id:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        status:
+          type: string
+          maxLength: 24
+        score:
+          type: number
+          format: double
+        streaks:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        last_seen_at:
+          type: string
+          format: date-time
+          readOnly: true
+        meta: {}
+      required:
+      - id
+      - item_id
+      - item_type
+      - last_seen_at
+      - user
+    QuizAnswerRequest:
+      type: object
+      properties:
+        answer:
+          type: integer
+      required:
+      - answer
+    QuizAnswerResponse:
+      type: object
+      properties:
+        session:
+          $ref: '#/components/schemas/QuizSession'
+        question:
+          $ref: '#/components/schemas/QuizQuestion'
+        isCorrect:
+          type: boolean
+      required:
+      - isCorrect
+      - question
+      - session
+    QuizQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        belt:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        payload: {}
+        answers: {}
+        correct:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+      required:
+      - id
+      - type
+    QuizSession:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        mode:
+          type: string
+          maxLength: 24
+        belt:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
+        questions:
+          readOnly: true
+        current_index:
+          type: integer
+          readOnly: true
+        correct_count:
+          type: integer
+          readOnly: true
+        finished:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - correct_count
+      - created_at
+      - current_index
+      - finished
+      - id
+      - mode
+      - questions
+      - updated_at
+    RoleEnum:
+      enum:
+      - owner
+      - coach
+      - member
+      type: string
+      description: |-
+        * `owner` - Owner
+        * `coach` - Coach
+        * `member` - Member
+    SearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+      - results
+    StatusEnum:
+      enum:
+      - uploaded
+      - processing
+      - ready
+      - failed
+      type: string
+      description: |-
+        * `uploaded` - Uploaded
+        * `processing` - Processing
+        * `ready` - Ready
+        * `failed` - Failed
+    Technique:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        names:
+          title: Nazwy (PL/EN/KR)
+          description: Słownik nazw, np. {pl,en,kr}
+        audio:
+          type: string
+          format: uri
+          nullable: true
+          title: Audio (wymowa)
+          maxLength: 200
+        category:
+          type: string
+          title: Kategoria
+          maxLength: 64
+        min_belt:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Minimalny pas
+          description: 10=9 kup ... 1=1 kup, 0=1 dan
+        key_points:
+          title: Punkty kluczowe
+        common_mistakes:
+          title: Błędy częste
+        videos:
+          title: Wideo
+          description: '{front,side,slow}'
+        safety:
+          type: string
+          nullable: true
+          title: Bezpieczeństwo
+        tags:
+          title: Tagi
+        version:
+          type: string
+          title: Wersja
+          maxLength: 20
+        valid_from:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Ważne od
+        valid_to:
+          type: string
+          format: date-time
+          nullable: true
+          title: Ważne do
+        is_draft:
+          type: boolean
+          title: Szkic (draft)
+      required:
+      - category
+      - id
+      - valid_from
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    Tul:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Nazwa
+          maxLength: 64
+        belt:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          title: Pas
+        steps:
+          title: Kroki
+        diagram:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        tempo: {}
+        videos:
+          title: Wideo
+        meaning:
+          type: string
+          nullable: true
+          title: Znaczenie
+        judge_notes:
+          type: string
+          nullable: true
+          title: Uwagi sędziowskie
+        version:
+          type: string
+          title: Wersja
+          maxLength: 20
+        valid_from:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Ważne od
+        valid_to:
+          type: string
+          format: date-time
+          nullable: true
+          title: Ważne do
+        is_draft:
+          type: boolean
+          title: Szkic
+      required:
+      - id
+      - name
+      - valid_from
+    TypeEnum:
+      enum:
+      - terms
+      - techniques
+      - tul
+      - theory
+      type: string
+      description: |-
+        * `terms` - Terms
+        * `techniques` - Techniques
+        * `tul` - Tul
+        * `theory` - Theory
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     ClubInviteView,
+    ClubRemoveMemberView,
     ClubListCreateView,
     EntitlementsTokenView,
     MeBillingView,
@@ -18,6 +19,7 @@ urlpatterns = [
     path("billing/entitlements/token", EntitlementsTokenView.as_view()),
     path("billing/clubs", ClubListCreateView.as_view()),
     path("billing/clubs/<int:club_id>/invite", ClubInviteView.as_view()),
+    path("billing/clubs/<int:club_id>/members/<int:user_id>", ClubRemoveMemberView.as_view()),
     path("billing/webhooks/stripe", StripeWebhookView.as_view()),
     path("billing/webhooks/revenuecat", RevenueCatWebhookView.as_view()),
 ]
