@@ -65,12 +65,14 @@ nav:
       - howto-filters.pl.md
       - howto-upload.pl.md
       - howto-billing.pl.md
+      - howto-search.pl.md
       - howto-clubs.pl.md
       - howto-jwt.en.md
       - howto-etag.en.md
       - howto-filters.en.md
       - howto-upload.en.md
       - howto-billing.en.md
+      - howto-search.en.md
       - howto-clubs.en.md
   - Reference:
       - reference/core.pl.md
