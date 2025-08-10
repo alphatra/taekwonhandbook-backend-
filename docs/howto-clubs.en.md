@@ -15,3 +15,16 @@ Requirements:
 - Seat limit enforced by plan's seats_max
 
 See also: howto-billing.en.md and Swagger UI under API.
+
+## Role permissions
+
+| Operation | Endpoint | owner | coach | member |
+|---|---|---|---|---|
+| List clubs | GET /api/v1/billing/clubs | ✓ | ✓ | ✗ |
+| Create club | POST /api/v1/billing/clubs | ✓ | ✗ | ✗ |
+| List members | GET /api/v1/billing/clubs/{id}/members | ✓ | ✓ | ✗ |
+| Invite member | POST /api/v1/billing/clubs/{id}/invite | ✓ | ✓ | ✗ |
+| Remove member | DELETE /api/v1/billing/clubs/{id}/members/{user_id} | ✓ | ✓ | ✗ |
+| Set role | POST /api/v1/billing/clubs/{id}/members/{user_id}/role | ✓ | ✗ | ✗ |
+| Delete club (empty) | DELETE /api/v1/billing/clubs/{id} | ✓ | ✗ | ✗ |
+| Leave club | POST /api/v1/billing/clubs/{id}/leave | ✗ | ✗ | ✓ |
