@@ -28,6 +28,8 @@ Prywatny ZIP (Actions → Build & Deploy Docs → Artifacts): `private-docs`
   - Redis: `REDIS_URL=redis://redis:6379/0`
   - Storage: `S3_ENDPOINT_URL`, `S3_BUCKET`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`
   - Search: `MEILISEARCH_URL`, `MEILISEARCH_API_KEY`
+  - Sentry: `SENTRY_DSN` (opcjonalnie), `SENTRY_TRACES_SAMPLE_RATE`, `SENTRY_PROFILES_SAMPLE_RATE`
+  - CSP: `CSP_CONNECT_EXTRA` (np. `https://sentry.io`)
 
 - Build + run:
   - `docker compose -f docker-compose.prod.yml build`
@@ -35,6 +37,15 @@ Prywatny ZIP (Actions → Build & Deploy Docs → Artifacts): `private-docs`
   - Logs: `docker compose -f docker-compose.prod.yml logs -f nginx` (JSON access), `... logs -f web`
 
 - OpenAPI eksport: `./scripts/export_openapi.sh` → plik `openapi.json`
+
+## Rate limits (DRF)
+- DEV (domyślne): `anon=200/min`, `user=2000/min`, media=30/min, search=90/min, quizzes=90/min, progress=180/min, billing=90/min, ads=90/min
+- PROD (domyślne): `anon=60/min`, `user=600/min`, media=10/min, search=30/min, quizzes=30/min, progress=60/min, billing=30/min, ads=30/min
+- Nadpisywanie: przez zmienne `DRF_THROTTLE_*`
+
+## Admin dashboard
+- Wykresy: Media (statusy), Content (techniques/tuls), Billing (plany/subskrypcje), Uploads 30d, Subscriptions 30d
+- Szybkie linki: Media (failed/processing), Techniques/Tuls, Subscriptions (active), Plans, Clubs
 
 ## Health i Celery (dev)
 - Health endpoint: `GET /health/` zwraca `{"status":"ok|degraded","db":...,"redis":...,"meilisearch":...}`
