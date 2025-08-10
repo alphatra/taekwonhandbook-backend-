@@ -147,6 +147,29 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 USE_ETAGS = True
 
 # DRF
+# Throttle defaults differ for DEV vs PROD (can be overridden via ENV)
+if DEBUG:
+    _THROTTLE_DEFAULTS = {
+        "anon": "200/min",
+        "user": "2000/min",
+        "media": "30/min",
+        "search": "90/min",
+        "quizzes": "90/min",
+        "progress": "180/min",
+        "billing": "90/min",
+        "ads": "90/min",
+    }
+else:
+    _THROTTLE_DEFAULTS = {
+        "anon": "60/min",
+        "user": "600/min",
+        "media": "10/min",
+        "search": "30/min",
+        "quizzes": "30/min",
+        "progress": "60/min",
+        "billing": "30/min",
+        "ads": "30/min",
+    }
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -164,14 +187,14 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.ScopedRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
-        "anon": os.getenv("DRF_THROTTLE_ANON", "100/min"),
-        "user": os.getenv("DRF_THROTTLE_USER", "1000/min"),
-        "media": os.getenv("DRF_THROTTLE_MEDIA", "20/min"),
-        "search": os.getenv("DRF_THROTTLE_SEARCH", "60/min"),
-        "quizzes": os.getenv("DRF_THROTTLE_QUIZZES", "60/min"),
-        "progress": os.getenv("DRF_THROTTLE_PROGRESS", "120/min"),
-        "billing": os.getenv("DRF_THROTTLE_BILLING", "60/min"),
-        "ads": os.getenv("DRF_THROTTLE_ADS", "60/min"),
+        "anon": os.getenv("DRF_THROTTLE_ANON", _THROTTLE_DEFAULTS["anon"]),
+        "user": os.getenv("DRF_THROTTLE_USER", _THROTTLE_DEFAULTS["user"]),
+        "media": os.getenv("DRF_THROTTLE_MEDIA", _THROTTLE_DEFAULTS["media"]),
+        "search": os.getenv("DRF_THROTTLE_SEARCH", _THROTTLE_DEFAULTS["search"]),
+        "quizzes": os.getenv("DRF_THROTTLE_QUIZZES", _THROTTLE_DEFAULTS["quizzes"]),
+        "progress": os.getenv("DRF_THROTTLE_PROGRESS", _THROTTLE_DEFAULTS["progress"]),
+        "billing": os.getenv("DRF_THROTTLE_BILLING", _THROTTLE_DEFAULTS["billing"]),
+        "ads": os.getenv("DRF_THROTTLE_ADS", _THROTTLE_DEFAULTS["ads"]),
     },
     "EXCEPTION_HANDLER": "core.exceptions.custom_exception_handler",
 }
