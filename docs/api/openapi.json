@@ -593,6 +593,10 @@ paths:
       description: Public read-only access to processed media assets with filters/search.
       parameters:
       - in: query
+        name: codec
+        schema:
+          type: string
+      - in: query
         name: kind
         schema:
           type: string

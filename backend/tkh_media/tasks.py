@@ -13,10 +13,12 @@ def transcode_media(media_id: int) -> None:
         return
     # Placeholder: w realu wywołanie ffmpeg, generacja miniatur, update pól
     asset.status = "ready"
-    asset.resolutions = ["480p"]
+    asset.codec = asset.codec or "h264"
+    asset.duration = asset.duration or 12.34
+    asset.resolutions = ["360p", "480p"]
     # Umieść miniaturę w tym samym katalogu co plik źródłowy
     dirpath = os.path.dirname(asset.file) if asset.file else ""
     thumb_name = "thumb_0001.jpg"
     asset.thumbnails = [f"{dirpath}/{thumb_name}" if dirpath else thumb_name]
-    asset.save(update_fields=["status", "resolutions", "thumbnails"])
+    asset.save(update_fields=["status", "codec", "duration", "resolutions", "thumbnails"])
 

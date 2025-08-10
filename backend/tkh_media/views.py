@@ -117,6 +117,7 @@ class MediaAssetViewSet(viewsets.ReadOnlyModelViewSet):
         "status": ["exact"],
         "techniques": ["exact"],
         "tuls": ["exact"],
+        "codec": ["exact"],
     }
     search_fields = ["file", "codec"]
 
