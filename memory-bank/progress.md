@@ -23,6 +23,7 @@ owner: delivery
 
 ## Ostatnie decyzje
 - ADR‑001, ADR‑002, ADR‑003 (CSP), ADR‑004 (throttling), ADR‑005 (ExamSyllabus), ADR‑011 (monetyzacja Free/Pro/Club), ADR‑012 (anti‑scraping) — zob. `activeContext.md`.
+ - ADR‑013 (Clubs API MVP) — list/create/invite/remove/delete (pusty), seats_max per plan.
 
 ## Co dalej (backend)
 - Uzupełnić OpenAPI dla wszystkich APIViews (brak ostrzeżeń), gotowe `openapi.json` w repo root.
@@ -30,6 +31,7 @@ owner: delivery
 - Przygotować profile prod (ENV: `CSRF_TRUSTED_ORIGINS`, `DJANGO_ALLOWED_HOSTS`, `CDN_ORIGIN`).
 - Opcjonalnie: dodać integrację z Sentry (BE/FE) i PostHog/Amplitude.
 - Billing: twarde webhooki (Stripe/RevenueCat) + idempotencja, TTL tokenu entitlements, Club API (create/invite/seats).
+ - Dodać kasowanie klubu w UI (tylko pusty), endpoint do rezygnacji członka (self‑leave), ewentualnie role `coach`.
 
 ## Artefakty
 - OpenAPI: `openapi.json` (aktualne po uruchomieniu `./scripts/export_openapi.sh`).

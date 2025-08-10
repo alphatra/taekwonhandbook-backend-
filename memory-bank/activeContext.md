@@ -93,3 +93,9 @@ owner: core-arch
 - Public: MkDocs Material i18n (PL/EN), How‑to (JWT, ETag, Filters, Upload), API (Swagger UI), Legal.
 - Private ZIP (Actions Artifact): pełna dokumentacja łącznie z Reference (mkdocstrings).
 
+## ADR‑013: Clubs API (owner‑centric)
+- Decyzja: Minimalne API klubów dla planu `club`: list/create owner clubs; invite/remove członków; delete klubu tylko gdy pusty. Limit miejsc egzekwowany przez `seats_max` w planie.
+- Endpointy: `GET/POST /billing/clubs`, `POST /billing/clubs/{id}/invite`, `DELETE /billing/clubs/{id}/members/{user_id}`, `DELETE /billing/clubs/{id}`.
+- Uzasadnienie: potrzebny prosty model zespołowy (kluby/trenerzy) na MVP z bezpieczeństwem po stronie serwera.
+- Koszt zmiany: niski/średni (rozszerzenia: role per uprawnienia, zaproszenia mail/link, seat management UI).
+
