@@ -18,8 +18,9 @@ from .serializers import SearchResponseSerializer
 
 @extend_schema(
     parameters=[
-        OpenApiParameter(name="q", description="Query string", required=False, type=str),
+        OpenApiParameter(name="q", description="Query string (icontains for DB fallback)", required=False, type=str),
         OpenApiParameter(name="type", description="technique|tul", required=False, type=str),
+        OpenApiParameter(name="limit", description="Max results (default 20, max 50)", required=False, type=int),
     ],
     responses=SearchResponseSerializer,
 )
@@ -43,13 +44,17 @@ class SearchView(APIView):
         query = request.GET.get("q", "").strip()
         kind = request.GET.get("type", "technique")
         results = []
+        try:
+            limit = max(1, min(50, int(request.GET.get("limit", 20))))
+        except Exception:
+            limit = 20
 
         if meilisearch and getattr(settings, "MEILISEARCH_URL", None):
             try:
                 client = meilisearch.Client(settings.MEILISEARCH_URL, settings.MEILISEARCH_API_KEY or None)
                 index_name = "techniques" if kind == "technique" else "tuls"
                 idx = client.index(index_name)
-                res = idx.search(query or "", {"limit": 20})
+                res = idx.search(query or "", {"limit": limit})
                 results = res.get("hits", [])
             except Exception:
                 results = []
@@ -61,7 +66,7 @@ class SearchView(APIView):
                     qs = qs.filter(category__icontains=query)
                 results = [
                     {"id": t.id, "names": t.names, "category": t.category, "min_belt": t.min_belt}
-                    for t in qs[:20]
+                    for t in qs[:limit]
                 ]
             else:
                 qs = Tul.objects.all()
@@ -69,7 +74,7 @@ class SearchView(APIView):
                     qs = qs.filter(name__icontains=query)
                 results = [
                     {"id": x.id, "name": x.name, "belt": x.belt}
-                    for x in qs[:20]
+                    for x in qs[:limit]
                 ]
 
         return Response({"results": results})

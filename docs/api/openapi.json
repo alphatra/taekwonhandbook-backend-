@@ -884,10 +884,15 @@ paths:
         EN: Unified search with Meilisearch first, then database fallback.
       parameters:
       - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Max results (default 20, max 50)
+      - in: query
         name: q
         schema:
           type: string
-        description: Query string
+        description: Query string (icontains for DB fallback)
       - in: query
         name: type
         schema:
