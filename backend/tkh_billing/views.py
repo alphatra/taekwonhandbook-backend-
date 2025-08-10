@@ -353,3 +353,45 @@ class ClubSelfLeaveView(APIView):
             club.save(update_fields=["seats_used"]) 
         return Response(status=204)
 
+
+class ClubMembersListView(APIView):
+    """PL: Lista członków klubu (owner).\n\nEN: List club members (owner)."""
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "billing"
+
+    @extend_schema(tags=["clubs"], responses={200: ClubMemberSerializer(many=True)})
+    def get(self, request, club_id: int):
+        try:
+            club = Club.objects.get(id=club_id, owner=request.user)
+        except Club.DoesNotExist:
+            return Response(status=404)
+        members = ClubMember.objects.filter(club=club).order_by("-created_at")
+        return Response(ClubMemberSerializer(members, many=True).data)
+
+
+class ClubSetRoleView(APIView):
+    """PL: Zmiana roli członka (owner → coach/member).\n\nEN: Change member role (owner sets coach/member)."""
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "billing"
+
+    @extend_schema(tags=["clubs"], request=None, responses={200: ClubMemberSerializer, 400: dict, 404: None})
+    def post(self, request, club_id: int, user_id: int):
+        try:
+            club = Club.objects.get(id=club_id, owner=request.user)
+        except Club.DoesNotExist:
+            return Response(status=404)
+        try:
+            member = ClubMember.objects.get(club=club, user_id=user_id)
+        except ClubMember.DoesNotExist:
+            return Response(status=404)
+        if member.role == "owner":
+            return Response({"detail": "cannot change owner role"}, status=400)
+        role = str(request.data.get("role") or "").strip()
+        if role not in {"coach", "member"}:
+            return Response({"detail": "invalid role"}, status=400)
+        member.role = role
+        member.save(update_fields=["role"]) 
+        return Response(ClubMemberSerializer(member).data)
+

@@ -79,6 +79,35 @@ class ClubApiTests(TestCase):
         names = [c["name"] for c in resp.json()]
         self.assertEqual(names, sorted(names))
 
+    def test_members_list_and_set_role(self):
+        self.client.force_login(self.owner)
+        # create club
+        resp = self.client.post(
+            "/api/v1/billing/clubs",
+            data=json.dumps({"name": "Role Club", "plan": "club", "seats_total": 2}),
+            content_type="application/json",
+        )
+        club_id = resp.json()["id"]
+        # invite member
+        self.client.post(
+            f"/api/v1/billing/clubs/{club_id}/invite",
+            data=json.dumps({"user_id": self.member.id}),
+            content_type="application/json",
+        )
+        # list members
+        resp = self.client.get(f"/api/v1/billing/clubs/{club_id}/members")
+        self.assertEqual(resp.status_code, 200)
+        members = resp.json()
+        self.assertTrue(any(m["user"] == self.member.id for m in members))
+        # set role
+        resp = self.client.post(
+            f"/api/v1/billing/clubs/{club_id}/members/{self.member.id}/role",
+            data=json.dumps({"role": "coach"}),
+            content_type="application/json",
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.json()["role"], "coach")
+
 
 class StripeWebhookTests(TestCase):
     def setUp(self) -> None:

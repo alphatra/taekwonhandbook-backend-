@@ -377,6 +377,32 @@ paths:
           description: ''
         '404':
           description: No response body
+  /api/v1/billing/clubs/{club_id}/members:
+    get:
+      operationId: v1_billing_clubs_members_list
+      description: |-
+        PL: Lista członków klubu (owner).
+
+        EN: List club members (owner).
+      parameters:
+      - in: path
+        name: club_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClubMember'
+          description: ''
   /api/v1/billing/clubs/{club_id}/members/{user_id}:
     delete:
       operationId: v1_billing_clubs_members_destroy
@@ -401,6 +427,44 @@ paths:
       - jwtAuth: []
       responses:
         '204':
+          description: No response body
+  /api/v1/billing/clubs/{club_id}/members/{user_id}/role:
+    post:
+      operationId: v1_billing_clubs_members_role_create
+      description: |-
+        PL: Zmiana roli członka (owner → coach/member).
+
+        EN: Change member role (owner sets coach/member).
+      parameters:
+      - in: path
+        name: club_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubMember'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+        '404':
           description: No response body
   /api/v1/billing/entitlements/token:
     get:
