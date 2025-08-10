@@ -321,7 +321,7 @@ class ClubSelfLeaveView(APIView):
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "billing"
 
-    @extend_schema(tags=["clubs"], responses={204: None, 400: dict, 404: None})
+    @extend_schema(tags=["clubs"], request=None, responses={204: None, 400: dict, 404: None})
     def post(self, request, club_id: int):
         try:
             club = Club.objects.get(id=club_id)
