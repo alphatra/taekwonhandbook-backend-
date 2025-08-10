@@ -1,0 +1,49 @@
+{% extends "admin/index.html" %}
+{% load admin_stats %}
+
+{% block content %}
+  {{ block.super }}
+  <hr>
+  <h2>Dashboard</h2>
+  <div id="stats" data-payload='{{ admin_stats_payload|safe }}'></div>
+  <canvas id="chartMedia" height="120"></canvas>
+  <canvas id="chartContent" height="120" style="margin-top:24px"></canvas>
+  <canvas id="chartBilling" height="120" style="margin-top:24px"></canvas>
+  <script>
+    (function(){
+      const el = document.getElementById('stats');
+      if(!el){ return; }
+      const data = JSON.parse(el.dataset.payload || '{}');
+      const media = data.media || {}; const content = data.content || {}; const billing = data.billing || {};
+      function bar(ctx, labels, values, title){
+        const max = Math.max(1, ...values);
+        const width = ctx.canvas.width;
+        const height = ctx.canvas.height;
+        const barWidth = Math.floor(width / (values.length * 2));
+        const gap = barWidth;
+        const colors = ['#4f46e5','#10b981','#f59e0b','#ef4444','#06b6d4'];
+        const c = ctx;
+        c.clearRect(0,0,width,height);
+        c.fillStyle = '#111827';
+        c.font = '14px system-ui, -apple-system';
+        c.fillText(title, 8, 18);
+        values.forEach((v, i) => {
+          const x = 16 + i * (barWidth + gap);
+          const h = Math.round((v / max) * (height - 40));
+          const y = height - 20 - h;
+          c.fillStyle = colors[i % colors.length];
+          c.fillRect(x, y, barWidth, h);
+          c.fillStyle = '#374151';
+          c.fillText(labels[i], x, height - 4);
+        });
+      }
+      const m = document.getElementById('chartMedia').getContext('2d');
+      bar(m, ['ready','processing','uploaded','failed'], [media.ready||0, media.processing||0, media.uploaded||0, media.failed||0], 'Media status');
+      const c = document.getElementById('chartContent').getContext('2d');
+      bar(c, ['techniques','tuls'], [content.techniques||0, content.tuls||0], 'Content totals');
+      const b = document.getElementById('chartBilling').getContext('2d');
+      bar(b, ['plans','subs_active'], [billing.plans||0, billing.subs_active||0], 'Billing');
+    })();
+  </script>
+{% endblock %}
+

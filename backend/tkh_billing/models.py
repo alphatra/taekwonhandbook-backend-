@@ -78,6 +78,15 @@ class AdPolicy(models.Model):
     session_cap = models.PositiveIntegerField(default=3)
     last_shown_at = models.DateTimeField(null=True, blank=True)
 
+    @classmethod
+    def objects_with_avg(cls):  # type: ignore
+        return cls.objects
+
+    @classmethod
+    def aggregate_avg_today(cls) -> float:
+        vals = list(cls.objects.values_list("today_shown", flat=True))
+        return (sum(vals) / len(vals)) if vals else 0.0
+
 
 class WebhookEvent(models.Model):
     provider = models.CharField(max_length=16)  # stripe|revenuecat

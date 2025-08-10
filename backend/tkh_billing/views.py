@@ -267,9 +267,16 @@ class ClubInviteView(APIView):
     @extend_schema(tags=["clubs"], request=None, responses={200: ClubMemberSerializer, 201: ClubMemberSerializer})
     def post(self, request, club_id: int):
         try:
-            club = Club.objects.get(id=club_id, owner=request.user)
+            club = Club.objects.get(id=club_id)
         except Club.DoesNotExist:
             return Response(status=404)
+        # permission: owner only
+        try:
+            role = ClubMember.objects.get(club=club, user=request.user).role
+        except ClubMember.DoesNotExist:
+            role = ""
+        if role not in {"owner", "coach"}:
+            return Response({"detail": "owner or coach required"}, status=403)
         user_id = request.data.get("user_id")
         if not user_id:
             return Response({"detail": "user_id required"}, status=400)
@@ -291,9 +298,15 @@ class ClubRemoveMemberView(APIView):
     @extend_schema(tags=["clubs"], responses={204: None})
     def delete(self, request, club_id: int, user_id: int):
         try:
-            club = Club.objects.get(id=club_id, owner=request.user)
+            club = Club.objects.get(id=club_id)
         except Club.DoesNotExist:
             return Response(status=404)
+        try:
+            role = ClubMember.objects.get(club=club, user=request.user).role
+        except ClubMember.DoesNotExist:
+            role = ""
+        if role not in {"owner", "coach"}:
+            return Response({"detail": "owner or coach required"}, status=403)
         try:
             member = ClubMember.objects.get(club=club, user_id=user_id)
         except ClubMember.DoesNotExist:
@@ -317,9 +330,15 @@ class ClubDeleteView(APIView):
     @extend_schema(tags=["clubs"], responses={204: None, 400: dict, 404: None})
     def delete(self, request, club_id: int):
         try:
-            club = Club.objects.get(id=club_id, owner=request.user)
+            club = Club.objects.get(id=club_id)
         except Club.DoesNotExist:
             return Response(status=404)
+        try:
+            role = ClubMember.objects.get(club=club, user=request.user).role
+        except ClubMember.DoesNotExist:
+            role = ""
+        if role not in {"owner", "coach"}:
+            return Response({"detail": "owner or coach required"}, status=403)
         # can delete only when only owner remains
         member_count = ClubMember.objects.filter(club=club).count()
         if member_count > 1 or club.seats_used > 1:
@@ -363,9 +382,15 @@ class ClubMembersListView(APIView):
     @extend_schema(tags=["clubs"], responses={200: ClubMemberSerializer(many=True)})
     def get(self, request, club_id: int):
         try:
-            club = Club.objects.get(id=club_id, owner=request.user)
+            club = Club.objects.get(id=club_id)
         except Club.DoesNotExist:
             return Response(status=404)
+        try:
+            role = ClubMember.objects.get(club=club, user=request.user).role
+        except ClubMember.DoesNotExist:
+            role = ""
+        if role != "owner":
+            return Response({"detail": "owner required"}, status=403)
         members = ClubMember.objects.filter(club=club).order_by("-created_at")
         return Response(ClubMemberSerializer(members, many=True).data)
 
@@ -379,9 +404,15 @@ class ClubSetRoleView(APIView):
     @extend_schema(tags=["clubs"], request=None, responses={200: ClubMemberSerializer, 400: dict, 404: None})
     def post(self, request, club_id: int, user_id: int):
         try:
-            club = Club.objects.get(id=club_id, owner=request.user)
+            club = Club.objects.get(id=club_id)
         except Club.DoesNotExist:
             return Response(status=404)
+        try:
+            role_self = ClubMember.objects.get(club=club, user=request.user).role
+        except ClubMember.DoesNotExist:
+            role_self = ""
+        if role_self != "owner":
+            return Response({"detail": "owner required"}, status=403)
         try:
             member = ClubMember.objects.get(club=club, user_id=user_id)
         except ClubMember.DoesNotExist:
