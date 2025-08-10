@@ -58,6 +58,7 @@ nav:
       - getting-started.pl.md
       - architecture.pl.md
       - howto-deploy.prod.pl.md
+      - howto-sentry.pl.md
   - API:
       - api/index.pl.md
   - How‑to:
