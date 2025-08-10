@@ -26,6 +26,9 @@ class ProgressViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.G
     # get_queryset already defined above; keep single definition
 
     def get_queryset(self):
+        # Avoid accessing request.user during schema generation
+        if getattr(self, "swagger_fake_view", False):  # drf-spectacular
+            return Progress.objects.none()
         return Progress.objects.filter(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
