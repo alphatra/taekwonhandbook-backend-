@@ -29,6 +29,9 @@ class ClubApiTests(TestCase):
         self.assertIn(resp.status_code, (200, 201))
         resp = self.client.delete(f"/api/v1/billing/clubs/{club_id}/members/{self.member.id}")
         self.assertEqual(resp.status_code, 204)
+        # now delete empty club
+        resp = self.client.delete(f"/api/v1/billing/clubs/{club_id}")
+        self.assertEqual(resp.status_code, 204)
 
 
 class StripeWebhookTests(TestCase):

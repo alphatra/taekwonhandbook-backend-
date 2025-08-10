@@ -278,6 +278,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/Club'
           description: ''
+  /api/v1/billing/clubs/{club_id}:
+    delete:
+      operationId: v1_billing_clubs_destroy
+      description: |-
+        PL: Usuwanie klubu (dozwolone, gdy tylko owner jest członkiem).
+
+        EN: Delete club (allowed when owner is the only member).
+      parameters:
+      - in: path
+        name: club_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - clubs
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+        '404':
+          description: No response body
   /api/v1/billing/clubs/{club_id}/invite:
     post:
       operationId: v1_billing_clubs_invite_create

@@ -293,3 +293,24 @@ class ClubRemoveMemberView(APIView):
             club.save(update_fields=["seats_used"]) 
         return Response(status=204)
 
+
+class ClubDeleteView(APIView):
+    """PL: Usuwanie klubu (dozwolone, gdy tylko owner jest członkiem).\n\nEN: Delete club (allowed when owner is the only member)."""
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "billing"
+
+    @extend_schema(tags=["clubs"], responses={204: None, 400: dict, 404: None})
+    def delete(self, request, club_id: int):
+        try:
+            club = Club.objects.get(id=club_id, owner=request.user)
+        except Club.DoesNotExist:
+            return Response(status=404)
+        # can delete only when only owner remains
+        member_count = ClubMember.objects.filter(club=club).count()
+        if member_count > 1 or club.seats_used > 1:
+            return Response({"detail": "cannot delete non-empty club"}, status=400)
+        ClubMember.objects.filter(club=club).delete()
+        club.delete()
+        return Response(status=204)
+
