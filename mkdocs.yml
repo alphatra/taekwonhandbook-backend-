@@ -1,0 +1,91 @@
+site_name: Taekwon‑Do Handbook — Backend Docs
+site_url: https://alphatra.github.io/taekwonhandbook-backend-
+docs_dir: .
+site_dir: ../site
+theme:
+  name: material
+  language: pl
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: green
+    - scheme: slate
+      primary: indigo
+      accent: green
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.arithmatex
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            separate_signature: true
+          paths:
+            - ../backend
+  - swagger-ui-tag
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - build: true
+          default: true
+          locale: pl
+          name: Polski
+        - build: true
+          locale: en
+          name: English
+extra:
+  social: []
+  generator: false
+  template_dir: overrides
+nav:
+  - index.pl.md
+  - Guides:
+      - getting-started.pl.md
+      - architecture.pl.md
+      - howto-deploy.prod.pl.md
+      - howto-sentry.pl.md
+  - API:
+      - api/index.pl.md
+  - How‑to:
+      - howto-jwt.pl.md
+      - howto-etag.pl.md
+      - howto-filters.pl.md
+      - howto-upload.pl.md
+      - howto-media.pl.md
+      - howto-billing.pl.md
+      - howto-search.pl.md
+      - howto-clubs.pl.md
+      - howto-jwt.en.md
+      - howto-etag.en.md
+      - howto-filters.en.md
+      - howto-upload.en.md
+      - howto-media.en.md
+      - howto-billing.en.md
+      - howto-search.en.md
+      - howto-clubs.en.md
+  - Reference:
+      - reference/core.pl.md
+      - reference/apps.pl.md
+  - Flows:
+      - flows/media-pipeline.pl.md
+      - flows/search-fallback.pl.md
+      - flows/offline-sync.pl.md
+  - Legal:
+      - license.pl.md
+      - terms.pl.md
+

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/architecture/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/architecture/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/architecture/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/getting-started/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/getting-started/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/getting-started/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-billing/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-billing/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-billing/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-clubs/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-clubs/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-clubs/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-deploy.prod/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-deploy.prod/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-deploy/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-etag/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-etag/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-etag/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-filters/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-filters/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-filters/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-jwt/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-jwt/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-jwt/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-media/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-media/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-media/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-search/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-search/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-search/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-sentry/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-sentry/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-sentry/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/howto-upload/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-upload/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-upload/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/license/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/license/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/license/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/terms/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/terms/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/terms/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/api/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/api/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/api/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/flows/media-pipeline/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/flows/media-pipeline/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/flows/media-pipeline/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/flows/offline-sync/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/flows/offline-sync/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/flows/offline-sync/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/flows/search-fallback/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/flows/search-fallback/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/flows/search-fallback/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/reference/apps/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/reference/apps/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/reference/apps/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/reference/core/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/reference/core/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/reference/core/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/reference/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/reference/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/reference/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/architecture/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/architecture/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/architecture/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/getting-started/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/getting-started/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/getting-started/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-billing/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-billing/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-billing/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-clubs/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-clubs/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-clubs/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-deploy.prod/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-deploy.prod/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-deploy.prod/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-etag/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-etag/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-etag/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-filters/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-filters/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-filters/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-jwt/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-jwt/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-jwt/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-media/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-media/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-media/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-search/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-search/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-search/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-sentry/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-sentry/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-sentry/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/howto-upload/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/howto-upload/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/howto-upload/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/license/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/license/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/license/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/terms/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/terms/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/terms/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/api/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/api/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/api/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/flows/media-pipeline/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/flows/media-pipeline/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/flows/media-pipeline/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/flows/offline-sync/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/flows/offline-sync/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/flows/offline-sync/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/flows/search-fallback/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/flows/search-fallback/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/flows/search-fallback/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/reference/apps/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/reference/apps/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/reference/apps/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/reference/core/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/reference/core/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/reference/core/"/>
+    </url>
+    <url>
+        <loc>https://alphatra.github.io/taekwonhandbook-backend-/en/reference/</loc>
+        <lastmod>2025-08-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://alphatra.github.io/taekwonhandbook-backend-/en/reference/"/>
+        <xhtml:link rel="alternate" hreflang="pl" href="https://alphatra.github.io/taekwonhandbook-backend-/reference/"/>
+    </url>
+</urlset>
