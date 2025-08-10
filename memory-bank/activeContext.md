@@ -93,6 +93,11 @@ owner: core-arch
 - Public: MkDocs Material i18n (PL/EN), How‑to (JWT, ETag, Filters, Upload), API (Swagger UI), Legal.
 - Private ZIP (Actions Artifact): pełna dokumentacja łącznie z Reference (mkdocstrings).
 
+## ADR‑014: Dokumentowanie przepływów funkcjonalnych (bez kodu)
+- Decyzja: Wszystkie kluczowe pipelines opisujemy tekstowo (kroki) w memory‑bank i docs how‑to zamiast Mermaid (stabilność buildów). Każdy przepływ ma: wejścia, walidacje, decyzje, wyjścia, oraz linki do endpointów.
+- Zakres przepływów: Media (upload→complete→transcode→list), Billing/Clubs (plans→webhook→entitlements→ads; clubs CRUD+roles), Search (Meili→fallback), Progress (upsert+ETag), Health (db/redis/meili status), Admin (dashboard wykresy + quick links).
+- Koszt zmiany: niski.
+
 ## ADR‑013: Clubs API (owner‑centric)
 - Decyzja: Minimalne API klubów dla planu `club`: list/create owner clubs; invite/remove członków; delete klubu tylko gdy pusty. Limit miejsc egzekwowany przez `seats_max` w planie.
 - Endpointy: `GET/POST /billing/clubs`, `POST /billing/clubs/{id}/invite`, `DELETE /billing/clubs/{id}/members/{user_id}`, `DELETE /billing/clubs/{id}`.

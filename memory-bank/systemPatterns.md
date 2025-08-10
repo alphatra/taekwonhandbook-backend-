@@ -28,6 +28,7 @@ owner: platform-arch
 
 ## Wyszukiwanie
 - Meilisearch: indeksy `techniques`, `tuls`, `glossary`; pola boost: tags, belt, category. Indeksacja async po publikacji/aktualizacji treści.
+ - Reindeksacja: `manage.py reindex_search --types techniques,tuls --batch-size 500 --drop|--dry-run`
 
 ## Wersjonowanie treści
 - Pola: `version`, `valid_from`, `valid_to`, `is_draft`. Soft‑rollout kontrolowany feature flagami (ConfigCat/LaunchDarkly). Flutter przechowuje wiele wersji rekordów, aktywną wybiera po `now ∈ [valid_from, valid_to)`.
@@ -45,4 +46,10 @@ owner: platform-arch
 - POST /api/v1/progress { userItem:{itemType,itemId}, status, score, occurredAt } → 200 upsert
 - POST /api/v1/media/upload { filename, size, mime } → 200 { url, fields } (S3 form)
 - GET /api/v1/media?techniques=<id>&tuls=<id>&kind=video&status=ready → lista powiązanych mediów
+
+## Katalog przepływów (diagramy tekstowe)
+- Media: upload (presign) → direct POST → complete → transcode → assets list (filtry: kind/status/codec/duration/resolution)
+- Billing: plans → purchase (provider) → webhook → entitlements token (TTL) → ads decision
+- Search: query (Meilisearch) → fallback DB → limit (1–50) → response
+- Progress: upsert idempotentny → list own → ETag (offline sync)
 

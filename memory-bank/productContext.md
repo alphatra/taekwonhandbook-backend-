@@ -47,6 +47,7 @@ owner: product-lead
 - Media: `POST /api/v1/media/upload` (presign) → `POST /api/v1/media/complete` (tworzy `MediaAsset`, w DEBUG od razu `ready`).
 - Wyszukiwanie: `GET /api/v1/search?q=&type=technique|tul`; z Meili lub fallback do DB.
 - Filtry relacyjne: `GET /api/v1/media?techniques=<id>&tuls=<id>`; `GET /api/v1/techniques?hasMedia=true`.
+- Billing/Clubs: `GET /api/v1/billing/plans`, `GET /api/v1/billing/entitlements/token`, `GET /api/v1/ads/should-show`; kluby: `GET/POST /api/v1/billing/clubs`, `POST /billing/clubs/{id}/invite`, `DELETE /billing/clubs/{id}/members/{user_id}`, `POST /billing/clubs/{id}/leave`, `DELETE /billing/clubs/{id}` (pusty), role: owner/coach/member.
 - Logi:
   - DEV: kolorowe Rich + mini‑tabela requestów; PROD: JSON z `X-Request-ID` (Nginx/Gunicorn/Django).
 - CI: `backend.yml` (ruff, check, migrations --check, pytest).
