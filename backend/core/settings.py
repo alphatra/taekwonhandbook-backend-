@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "tkh_quizzes",
     "tkh_exams",
     "tkh_billing",
+    # sentry sdk is runtime-only; no Django app required
 ]
 
 MIDDLEWARE = [

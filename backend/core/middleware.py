@@ -7,6 +7,10 @@ from django.http import HttpRequest, HttpResponse
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
+try:
+    import sentry_sdk
+except Exception:  # pragma: no cover
+    sentry_sdk = None
 
 
 class RequestLogMiddleware:
@@ -42,6 +46,14 @@ class RequestLogMiddleware:
                     "remote_addr": request.META.get("REMOTE_ADDR"),
                 },
             )
+            # Bind Sentry scope with request_id
+            try:
+                if sentry_sdk:
+                    with sentry_sdk.configure_scope() as scope:  # type: ignore
+                        scope.set_tag("request_id", request_id)
+                        scope.set_extra("duration_ms", duration_ms)
+            except Exception:
+                pass
             # Rich pretty print (dev): kolor, tabela skrótowa
             try:
                 status_text = Text(str(status_code), style="green" if 200 <= status_code < 400 else ("yellow" if 400 <= status_code < 500 else "red"))
