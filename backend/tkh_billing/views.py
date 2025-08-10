@@ -314,3 +314,28 @@ class ClubDeleteView(APIView):
         club.delete()
         return Response(status=204)
 
+
+class ClubSelfLeaveView(APIView):
+    """PL: Członek sam opuszcza klub (nie owner).\n\nEN: Member leaves the club (non-owner)."""
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "billing"
+
+    @extend_schema(tags=["clubs"], responses={204: None, 400: dict, 404: None})
+    def post(self, request, club_id: int):
+        try:
+            club = Club.objects.get(id=club_id)
+        except Club.DoesNotExist:
+            return Response(status=404)
+        try:
+            member = ClubMember.objects.get(club=club, user=request.user)
+        except ClubMember.DoesNotExist:
+            return Response(status=404)
+        if member.role == "owner":
+            return Response({"detail": "owner cannot self-leave"}, status=400)
+        member.delete()
+        if club.seats_used > 0:
+            club.seats_used -= 1
+            club.save(update_fields=["seats_used"]) 
+        return Response(status=204)
+

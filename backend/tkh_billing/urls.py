@@ -5,6 +5,7 @@ from .views import (
     ClubRemoveMemberView,
     ClubListCreateView,
     ClubDeleteView,
+    ClubSelfLeaveView,
     EntitlementsTokenView,
     MeBillingView,
     PlansView,
@@ -22,6 +23,7 @@ urlpatterns = [
     path("billing/clubs/<int:club_id>/invite", ClubInviteView.as_view()),
     path("billing/clubs/<int:club_id>/members/<int:user_id>", ClubRemoveMemberView.as_view()),
     path("billing/clubs/<int:club_id>", ClubDeleteView.as_view()),
+    path("billing/clubs/<int:club_id>/leave", ClubSelfLeaveView.as_view()),
     path("billing/webhooks/stripe", StripeWebhookView.as_view()),
     path("billing/webhooks/revenuecat", RevenueCatWebhookView.as_view()),
 ]

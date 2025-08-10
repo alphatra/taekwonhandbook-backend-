@@ -33,6 +33,29 @@ class ClubApiTests(TestCase):
         resp = self.client.delete(f"/api/v1/billing/clubs/{club_id}")
         self.assertEqual(resp.status_code, 204)
 
+    def test_self_leave(self):
+        # owner creates club and invites member; then member leaves
+        User = get_user_model()
+        owner = self.owner
+        member = self.member
+        self.client.force_login(owner)
+        resp = self.client.post(
+            "/api/v1/billing/clubs",
+            data=json.dumps({"name": "Club B", "plan": "club", "seats_total": 2}),
+            content_type="application/json",
+        )
+        club_id = resp.json()["id"]
+        self.client.post(
+            f"/api/v1/billing/clubs/{club_id}/invite",
+            data=json.dumps({"user_id": member.id}),
+            content_type="application/json",
+        )
+        # member leaves
+        client2 = Client()
+        client2.force_login(member)
+        resp = client2.post(f"/api/v1/billing/clubs/{club_id}/leave")
+        self.assertEqual(resp.status_code, 204)
+
 
 class StripeWebhookTests(TestCase):
     def setUp(self) -> None:
