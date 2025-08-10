@@ -9,6 +9,8 @@
   <canvas id="chartMedia" height="120"></canvas>
   <canvas id="chartContent" height="120" style="margin-top:24px"></canvas>
   <canvas id="chartBilling" height="120" style="margin-top:24px"></canvas>
+  <canvas id="chartUploads" height="120" style="margin-top:24px"></canvas>
+  <canvas id="chartSubs" height="120" style="margin-top:24px"></canvas>
   <script>
     (function(){
       const el = document.getElementById('stats');
@@ -37,12 +39,37 @@
           c.fillText(labels[i], x, height - 4);
         });
       }
+      function line(ctx, labels, values, title){
+        const width = ctx.canvas.width;
+        const height = ctx.canvas.height;
+        const padding = 24;
+        const max = Math.max(1, ...values);
+        const stepX = (width - padding * 2) / (values.length - 1);
+        const toY = (v) => height - padding - (v / max) * (height - padding * 2);
+        const c = ctx;
+        c.clearRect(0,0,width,height);
+        c.fillStyle = '#111827';
+        c.font = '14px system-ui, -apple-system';
+        c.fillText(title, 8, 18);
+        c.strokeStyle = '#2563eb'; c.lineWidth = 2; c.beginPath();
+        values.forEach((v, i) => {
+          const x = padding + i * stepX; const y = toY(v);
+          if(i===0) c.moveTo(x,y); else c.lineTo(x,y);
+        });
+        c.stroke();
+      }
+
       const m = document.getElementById('chartMedia').getContext('2d');
       bar(m, ['ready','processing','uploaded','failed'], [media.ready||0, media.processing||0, media.uploaded||0, media.failed||0], 'Media status');
       const c = document.getElementById('chartContent').getContext('2d');
       bar(c, ['techniques','tuls'], [content.techniques||0, content.tuls||0], 'Content totals');
       const b = document.getElementById('chartBilling').getContext('2d');
       bar(b, ['plans','subs_active'], [billing.plans||0, billing.subs_active||0], 'Billing');
+      const ts = data.timeseries || {};
+      const u = document.getElementById('chartUploads').getContext('2d');
+      line(u, ts.labels||[], ts.uploads||[], 'Uploads (30d)');
+      const s = document.getElementById('chartSubs').getContext('2d');
+      line(s, ts.labels||[], ts.subs||[], 'Subscriptions (30d)');
     })();
   </script>
 {% endblock %}
