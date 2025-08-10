@@ -121,5 +121,27 @@ class MediaAssetViewSet(viewsets.ReadOnlyModelViewSet):
     }
     search_fields = ["file", "codec"]
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        # Duration range filters
+        try:
+            dmin = self.request.query_params.get("duration_min")
+            dmax = self.request.query_params.get("duration_max")
+            if dmin is not None:
+                qs = qs.filter(duration__gte=float(dmin))
+            if dmax is not None:
+                qs = qs.filter(duration__lte=float(dmax))
+        except ValueError:
+            pass
+        # Resolution contains (e.g., resolution=480p)
+        res = self.request.query_params.get("resolution")
+        if res:
+            try:
+                qs = qs.filter(resolutions__contains=[res])
+            except Exception:
+                # Fallback naive filter for non-JSON contains backends
+                qs = qs.filter(resolutions__icontains=res)
+        return qs
+
 
 # Create your views here.
