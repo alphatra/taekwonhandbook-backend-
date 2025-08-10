@@ -214,8 +214,14 @@ if not DEBUG:
     CSP_DEFAULT_SRC = ("'self'",)
     CSP_IMG_SRC = ("'self'", "data:", "blob:")
     CSP_MEDIA_SRC = ("'self'", "data:", "blob:", os.getenv("CDN_ORIGIN", ""))
-    CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'" if os.getenv("CSP_UNSAFE_INLINE") else "'self'",)
-    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'",)
+    # Allow inline only when explicitly enabled via env
+    CSP_SCRIPT_SRC = ("'self'",) + (("'unsafe-inline'",) if os.getenv("CSP_UNSAFE_INLINE") else tuple())
+    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")
+    CSP_OBJECT_SRC = ("'none'",)
+    CSP_FRAME_ANCESTORS = ("'none'",)
+    # Optional connect-src extras (e.g., Sentry, analytics)
+    _connect_extra = tuple(filter(None, (os.getenv("CSP_CONNECT_EXTRA", "").strip(),)))
+    CSP_CONNECT_SRC = ("'self'",) + _connect_extra
 
 # Channels (Redis backend via channels-redis)
 CHANNEL_LAYERS = {
