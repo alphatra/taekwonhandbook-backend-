@@ -23,10 +23,16 @@ class EntitlementAdmin(admin.ModelAdmin):
     search_fields = ("user__username",)
 
 
+class ClubMemberInline(admin.TabularInline):
+    model = ClubMember
+    extra = 0
+
+
 @admin.register(Club)
 class ClubAdmin(admin.ModelAdmin):
     list_display = ("name", "owner", "plan", "seats_total", "seats_used")
     search_fields = ("name", "owner__username")
+    inlines = [ClubMemberInline]
 
 
 @admin.register(ClubMember)
