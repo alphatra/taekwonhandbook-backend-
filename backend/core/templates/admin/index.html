@@ -11,6 +11,15 @@
   <canvas id="chartBilling" height="120" style="margin-top:24px"></canvas>
   <canvas id="chartUploads" height="120" style="margin-top:24px"></canvas>
   <canvas id="chartSubs" height="120" style="margin-top:24px"></canvas>
+  <div style="margin-top:24px">
+    <h3>Quick links</h3>
+    <ul>
+      <li><a href="/admin/tkh_media/mediaasset/">Media assets</a> · <a href="/admin/tkh_media/mediaasset/?status__exact=failed">failed</a> · <a href="/admin/tkh_media/mediaasset/?status__exact=processing">processing</a></li>
+      <li><a href="/admin/tkh_lexicon/technique/">Techniques</a> · <a href="/admin/tkh_patterns/tul/">Tuls</a></li>
+      <li><a href="/admin/tkh_billing/subscription/">Subscriptions</a> · <a href="/admin/tkh_billing/subscription/?status__exact=active">active</a></li>
+      <li><a href="/admin/tkh_billing/plan/">Plans</a> · <a href="/admin/tkh_billing/club/">Clubs</a></li>
+    </ul>
+  </div>
   <script>
     (function(){
       const el = document.getElementById('stats');
